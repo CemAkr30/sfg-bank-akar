@@ -1,7 +1,6 @@
-package ca.springframework.sfgbankakar.services.map;
+package ca.springframework.sfgbankakar.services;
 
 import ca.springframework.sfgbankakar.model.Iletisim;
-import ca.springframework.sfgbankakar.services.Crudservice;
 
 
 public interface IletisimService   extends Crudservice<Iletisim,Long>  {

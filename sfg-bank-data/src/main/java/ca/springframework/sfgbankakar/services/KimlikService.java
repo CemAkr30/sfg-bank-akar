@@ -1,7 +1,6 @@
-package ca.springframework.sfgbankakar.services.map;
+package ca.springframework.sfgbankakar.services;
 
 import ca.springframework.sfgbankakar.model.Kimlik;
-import ca.springframework.sfgbankakar.services.Crudservice;
 
 public interface KimlikService extends Crudservice<Kimlik,Long> {
 
