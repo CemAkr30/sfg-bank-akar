@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-//RestController method tarafında ki string değeri bile dönerken @controller dönmüyor thymeleaf göre form dönüyor
+//RestController method tarafında ki string değeri bile dönerken @controller dönmüyor thymeleaf göre -> resources/templates directory dönüyor
 @RestController
 public class IndexController {
 
