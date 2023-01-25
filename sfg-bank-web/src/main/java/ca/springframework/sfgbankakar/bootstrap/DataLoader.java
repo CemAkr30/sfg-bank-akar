@@ -7,9 +7,6 @@ import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.IletisimService;
 import ca.springframework.sfgbankakar.services.KimlikService;
-import ca.springframework.sfgbankakar.services.map.AdresMapService;
-import ca.springframework.sfgbankakar.services.map.IletisimMapService;
-import ca.springframework.sfgbankakar.services.map.KimlikMapService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -27,19 +24,25 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final IletisimService iletisimService;
     private final AdresService adresService;
 
-    public DataLoader() {
-       this.iletisimService = new IletisimMapService();
-       this.kimlikService = new KimlikMapService();
-       this.adresService = new AdresMapService();  // alt sınıfı manuel injection yaptık
+    public DataLoader(KimlikService kimlikService, IletisimService iletisimService, AdresService adresService) {
+        this.kimlikService = kimlikService;
+        this.iletisimService = iletisimService;
+        this.adresService = adresService;
     }
+
+//    public DataLoader() {
+//       this.iletisimService = new IletisimMapService();
+//       this.kimlikService = new KimlikMapService();
+//       this.adresService = new AdresMapService();  // alt sınıfı manuel injection yaptık
+//    }
 
 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-//        iletisimService.deleteAll();
-//        kimlikService.deleteAll();
-//        adresService.deleteAll();
+        iletisimService.deleteAll();
+        kimlikService.deleteAll();
+        adresService.deleteAll();
         getLoaderData();
         System.out.println("Loading Bootstrap Data");
     }
@@ -51,22 +54,18 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Adres adresLoader = new Adres();
         Adres adresLoaderTwo = new Adres();
         Iletisim iletisimLoader = new Iletisim();
-        kimlikLoader.setId(1L);
         kimlikLoader.setAdiSoyadi("Cem Akar");
       //  kimlikLoader.setCinsiyet(Cinsiyet.ERKEK);
         kimlikLoader.setKimlikNo("13195012392");
 
         //1- data adres
-        adresLoader.setId(1L);
         adresLoader.setBeyanAdres("Ankara/Yenimahalle Batıkent");
         adresLoader.setEmail("cakar1905@gmail.com");
         //2-data adres
-        adresLoaderTwo.setId(2L);
         adresLoaderTwo.setEmail("cakar18@gmail.com");
 
         //1-data iletisim
 
-        iletisimLoader.setId(1L);
         iletisimLoader.setEvTelefonNo("444 00 1412");
         iletisimLoader.setTelefonNo("05380366444");
 
@@ -96,24 +95,20 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         Adres adresBoTwo = new Adres();
         Iletisim iletisimBo = new Iletisim();
 
-        kimlikBo.setId(2L);
         kimlikBo.setAdiSoyadi("Berk Öncü");
       //  kimlikBo.setCinsiyet(Cinsiyet.ERKEK);
         kimlikBo.setKimlikNo("13205931832");
 
-        adresBo.setId(3L);
         adresBo.setEmail("berkoncu99@gmail.com");
         adresBo.setBeyanAdres("Ankara/Batıkent Kuzu mahallesi");
         adresBo.setKimlik(kimlikBo);
 
         // bo -> data adres 2
 
-        adresBoTwo.setId(4L);
         adresBoTwo.setBeyanAdres("Yaşamkent/Ankara");
         adresBoTwo.setEmail("reusBerk99@gmail.com");
         adresBoTwo.setKimlik(kimlikBo);
 
-        iletisimBo.setId(2L);
         iletisimBo.setTelefonNo("05342431001");
         iletisimBo.setKimlik(kimlikBo);
 

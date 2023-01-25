@@ -14,5 +14,7 @@ public interface Crudservice<T,ID> {
 
     void deleteById(ID id);
 
+    void deleteAll();
+
 //    T print();
 }

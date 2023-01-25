@@ -3,12 +3,14 @@ package ca.springframework.sfgbankakar.services.map;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.Crudservice;
 import ca.springframework.sfgbankakar.services.KimlikService;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Set;
 
 
 //Crudservice<Kimlik,Long>
+@Component
 public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements KimlikService {
 
 
@@ -28,6 +30,11 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        super.deleteAll();
     }
 
     @Override

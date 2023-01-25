@@ -3,10 +3,12 @@ package ca.springframework.sfgbankakar.services.map;
 import ca.springframework.sfgbankakar.model.Iletisim;
 import ca.springframework.sfgbankakar.services.Crudservice;
 import ca.springframework.sfgbankakar.services.IletisimService;
+import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
 //implements Crudservice<Iletisim,Long>
+@Component
 public class IletisimMapService  extends AbstractMapService<Iletisim,Long> implements IletisimService {
 
 
@@ -23,6 +25,11 @@ public class IletisimMapService  extends AbstractMapService<Iletisim,Long> imple
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        super.deleteAll();
     }
 
     @Override
