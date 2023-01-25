@@ -1,0 +1,4 @@
+ca:
+  dbUserName: ymlDevUsername
+  dbPassword: ymlDevPassword
+  dbUrl: ymlDevUrl

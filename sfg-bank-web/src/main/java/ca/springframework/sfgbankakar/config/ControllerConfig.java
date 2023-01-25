@@ -4,20 +4,45 @@ package ca.springframework.sfgbankakar.config;
 import ca.springframework.sfgbankakar.controllers.AdresController;
 import ca.springframework.sfgbankakar.controllers.IletisimController;
 import ca.springframework.sfgbankakar.controllers.KimlikController;
+import ca.springframework.sfgbankakar.dataSource.FakeDataSource;
 import ca.springframework.sfgbankakar.model.Iletisim;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 
 //TODO II.ADIM CONTEXT EKLEME
 
-//@Configuration
+
+//@PropertySource("classpath:datasource.properties") // -> proje derlenirken bu classpath git env. verdiğim verileri tut @Value ile çek
+//@PropertySource("classpath:datasource.properties")  belirtmez isek default appliaction göre env. çeker veya -dev -qa olarak oluşturulan yml veya propertiesleri
+// ana applaction.properties file tarafında profile.active olarak = qa dersek bu file ile beraber qa da çalışır.
+@Configuration
 public class ControllerConfig {
 
 
     //Örnek olarak -> sterotypeler verilmez ise @restController, @Controller context instiance ekleyemez fakat
     //Bütün package içerisinde ki service,repo,controller'ları tek bir config altında toplayarak manuel olarak @Bean anotation sayesinde
     // ekleme yapabiliriz. @Bean anotation da tıp ki diğer @sterotypler gibi context instiance ekler.
+
+
+    //-> proje derlenirken bu classpath git env. verdiğim verileri tut @Value ile çek
+    @Bean
+    FakeDataSource fakeDataSource(@Value("${ca.dbUserName}") String dbUserName,
+                                  @Value("${ca.dbPassword}") String dbPassword,
+                                  @Value("${ca.dbUrl}") String dbUrl){
+        FakeDataSource fakeDataSource = new FakeDataSource();
+        fakeDataSource.setDbUserName(dbUserName);
+        fakeDataSource.setDbPassword(dbPassword);
+        fakeDataSource.setDbUrl(dbUrl);
+
+        System.out.println("Db Username = " + fakeDataSource.getDbUserName());
+        System.out.println("Db Password = " + fakeDataSource.getDbPassword());
+        System.out.println("Db Url = " + fakeDataSource.getDbUrl());
+
+        return fakeDataSource;
+    }
 
 
 //    @Bean

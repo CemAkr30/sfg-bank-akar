@@ -1,12 +1,23 @@
-spring.jpa:
-  database: POSTGRESQL
-  hibernate.ddl-auto: create-drop
-  show-sql: true
+spring:
+  profiles:
+    active: prod
 
-spring.datasource:
-  driverClassName: org.postgresql.Driver
-  url: jdbc:postgresql://localhost:5432/bank
-  username: postgres
-  password: 1905
+ca:
+  dbUserName: ymlUsername
+  dbPassword: ymlPassword
+  dbUrl: ymlUrl
+
 server:
-  port: 9999
+    port: 9999
+
+
+
+---  # --- tipi -> yeni bir yml açar gibi davranýr bu applaction.yml okur ve ekstra profile verilen yml de okur env. ona göre düzenlenir.
+    # aþaðýda belirtilen gibi -dev.yml açmak yerine bir yml açma yöntemi daha
+spring:
+  profiles:
+    prod
+ca:
+  dbUserName: ymlprodUsername
+  dbPassword: ymlprodPassword
+  dbUrl: ymlprodUrl
