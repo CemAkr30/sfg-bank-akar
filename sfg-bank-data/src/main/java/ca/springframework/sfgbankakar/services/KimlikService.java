@@ -6,7 +6,6 @@ public interface KimlikService extends Crudservice<Kimlik,Long> {
 
     Kimlik findByAdiSoyadi(String adiSoyadi);
 
-
     //TODO  base interface bunları kullandığı için gerek yok artık
 //    Kimlik findById(Long id);
 //    Kimlik save(Kimlik kimlik);

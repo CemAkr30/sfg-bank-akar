@@ -2,10 +2,14 @@ package ca.springframework.sfgbankakar.services.map;
 
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.Crudservice;
+import ca.springframework.sfgbankakar.services.KimlikService;
 
+import java.util.Map;
 import java.util.Set;
 
-public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements Crudservice<Kimlik,Long> {
+
+//Crudservice<Kimlik,Long>
+public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements KimlikService {
 
 
     // CrudService taklit ederek memberları oluşturduk super. abstarctmap gidecek
@@ -13,6 +17,13 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     public Set<Kimlik> findAll() {
         return super.findAll();
     }
+
+//    @Override
+//    public Kimlik print() {
+//        Kimlik kimlik = super.print();
+//        System.out.println(kimlik.getAdiSoyadi() + "," + kimlik.getKimlikNo());
+//        return kimlik;
+//    }
 
     @Override
     public void deleteById(Long id) {
@@ -32,5 +43,10 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     @Override
     public Kimlik findById(Long id) {
         return super.findById(id);
+    }
+
+    @Override
+    public Kimlik findByAdiSoyadi(String adiSoyadi) {
+        return null;
     }
 }

@@ -1,9 +1,6 @@
 package ca.springframework.sfgbankakar.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public abstract class AbstractMapService<T,ID> {
 
@@ -30,4 +27,10 @@ public abstract class AbstractMapService<T,ID> {
         map.entrySet().removeIf(idtEntry -> idtEntry.getValue().equals(object));
     }
 
+//    T print(){
+////        for (Map.Entry<ID, T> entry : map.entrySet()) {
+////            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+////        }
+//        return (T) map.entrySet().iterator().next();
+//    }
 }
