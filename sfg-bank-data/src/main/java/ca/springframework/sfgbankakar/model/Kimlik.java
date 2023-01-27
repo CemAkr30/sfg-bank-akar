@@ -1,6 +1,8 @@
 package ca.springframework.sfgbankakar.model;
 
 
+import ca.springframework.sfgbankakar.enums.Cinsiyet;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,8 +17,8 @@ public class Kimlik extends BaseEntity {
     @Column(name = "ADI_SOYADI",nullable = true)
     private String adiSoyadi;
 
-//    @Column(name = "CINSIYET")
-//    private Cinsiyet cinsiyet;
+    @Column(name = "CINSIYET")
+    private Cinsiyet cinsiyet;
 
     @Column(name = "KIMLIK_NO",length = 11,nullable = true)
     private String kimlikNo;
@@ -48,13 +50,13 @@ public class Kimlik extends BaseEntity {
         this.adiSoyadi = adiSoyadi;
     }
 
-//    public Cinsiyet getCinsiyet() {
-//        return cinsiyet;
-//    }
-//
-//    public void setCinsiyet(Cinsiyet cinsiyet) {
-//        this.cinsiyet = cinsiyet;
-//    }
+    public Cinsiyet getCinsiyet() {
+        return cinsiyet;
+    }
+
+    public void setCinsiyet(Cinsiyet cinsiyet) {
+        this.cinsiyet = cinsiyet;
+    }
 
     public String getKimlikNo() {
         return kimlikNo;

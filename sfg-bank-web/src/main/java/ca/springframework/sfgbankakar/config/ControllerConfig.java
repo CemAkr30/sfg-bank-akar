@@ -20,12 +20,10 @@ import org.springframework.context.annotation.PropertySource;
 // ana applaction.properties file tarafında profile.active olarak = qa dersek bu file ile beraber qa da çalışır.
 @Configuration
 public class ControllerConfig {
-
-
+    
     //Örnek olarak -> sterotypeler verilmez ise @restController, @Controller context instiance ekleyemez fakat
     //Bütün package içerisinde ki service,repo,controller'ları tek bir config altında toplayarak manuel olarak @Bean anotation sayesinde
     // ekleme yapabiliriz. @Bean anotation da tıp ki diğer @sterotypler gibi context instiance ekler.
-
 
     //-> proje derlenirken bu classpath git env. verdiğim verileri tut @Value ile çek
     @Bean

@@ -121,6 +121,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         kimlikBo.setAdresSet(adresLoadersTwo);
         kimlikBo.setIletisimSet(iletisimLoadersTwo);
 
+
+        Adres adresBoThree = new Adres();
+        adresBoThree.setKimlik(kimlikBo);
+        adresBoThree.setEmail("bboncu99@gmail.com");
+        adresBoThree.setBeyanAdres("deneme adres test");
+
+        kimlikBo.addAdresSet(adresBoThree);
+
         kimlikService.save(kimlikBo);
     //    kimlikRepository.flush();
 
