@@ -1,11 +1,11 @@
 package ca.springframework.sfgbankakar.services.map;
 
+import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Kimlik;
-import ca.springframework.sfgbankakar.services.Crudservice;
+import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.KimlikService;
 import org.springframework.stereotype.Component;
 
-import java.util.Map;
 import java.util.Set;
 
 
@@ -13,6 +13,11 @@ import java.util.Set;
 @Component
 public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements KimlikService {
 
+    private final AdresService adresService;
+
+    public KimlikMapService(AdresService adresService) {
+        this.adresService = adresService;
+    }
 
     // CrudService taklit ederek memberları oluşturduk super. abstarctmap gidecek
     @Override
@@ -44,6 +49,19 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
 
     @Override
     public Kimlik save(Kimlik object) {
+        if (object != null) {
+            if (object.getAdresSet() != null) {
+                object.getAdresSet().forEach(adres -> {
+                            if(adres.getId()==null){
+                                Adres savedAdres = adresService.save(adres);
+                                adres.setId(savedAdres.getId());
+                                // adresService.save(adres); adres zaten memory de tutulduğundan getNextId id setlediği zaman otomatik objede change oluyor
+                                //heap memory objeler
+                            }
+                        }
+                );
+            }
+        }
         return super.save(object.getId(),object);
     }
 

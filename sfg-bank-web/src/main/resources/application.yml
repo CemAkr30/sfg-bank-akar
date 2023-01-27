@@ -10,13 +10,11 @@ ca:
 server:
     port: 9999
 
+---
 
-
----  # --- tipi -> yeni bir yml açar gibi davranýr bu applaction.yml okur ve ekstra profile verilen yml de okur env. ona göre düzenlenir.
-    # aþaðýda belirtilen gibi -dev.yml açmak yerine bir yml açma yöntemi daha
 spring:
   profiles:
-    prod
+    active: prod
 ca:
   dbUserName: ymlprodUsername
   dbPassword: ymlprodPassword
