@@ -7,7 +7,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ILETISIM" ,schema = "BANK")
+@Table(name = "ILETISIM")
 public class Iletisim extends BaseEntity {
 
 

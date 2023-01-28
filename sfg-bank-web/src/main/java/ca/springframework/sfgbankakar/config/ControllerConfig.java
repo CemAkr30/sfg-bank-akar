@@ -1,16 +1,17 @@
 package ca.springframework.sfgbankakar.config;
 
 
-import ca.springframework.sfgbankakar.controllers.AdresController;
-import ca.springframework.sfgbankakar.controllers.IletisimController;
-import ca.springframework.sfgbankakar.controllers.KimlikController;
 import ca.springframework.sfgbankakar.dataSource.FakeDataSource;
-import ca.springframework.sfgbankakar.model.Iletisim;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import javax.mail.internet.MimeMessage;
+import java.io.InputStream;
 
 //TODO II.ADIM CONTEXT EKLEME
 
@@ -20,7 +21,7 @@ import org.springframework.context.annotation.PropertySource;
 // ana applaction.properties file tarafında profile.active olarak = qa dersek bu file ile beraber qa da çalışır.
 @Configuration
 public class ControllerConfig {
-    
+
     //Örnek olarak -> sterotypeler verilmez ise @restController, @Controller context instiance ekleyemez fakat
     //Bütün package içerisinde ki service,repo,controller'ları tek bir config altında toplayarak manuel olarak @Bean anotation sayesinde
     // ekleme yapabiliriz. @Bean anotation da tıp ki diğer @sterotypler gibi context instiance ekler.
@@ -41,6 +42,12 @@ public class ControllerConfig {
 
         return fakeDataSource;
     }
+
+
+//    @Bean
+//    KimlikService kimlikService(KimlikRepository kimlikRepository){
+//        return new KimlikSDService(kimlikRepository);
+//    }
 
 
 //    @Bean

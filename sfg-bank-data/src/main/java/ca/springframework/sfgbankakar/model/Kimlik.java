@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "KIMLIK" ,schema = "BANK")
+@Table(name = "KIMLIK" )
 public class Kimlik extends BaseEntity {
 
     public Kimlik() {
@@ -17,6 +17,7 @@ public class Kimlik extends BaseEntity {
     @Column(name = "ADI_SOYADI",nullable = true)
     private String adiSoyadi;
 
+    //@Enumerated
     @Column(name = "CINSIYET")
     private Cinsiyet cinsiyet;
 

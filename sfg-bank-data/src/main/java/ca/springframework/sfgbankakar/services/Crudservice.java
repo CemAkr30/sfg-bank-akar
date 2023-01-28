@@ -1,5 +1,7 @@
 package ca.springframework.sfgbankakar.services;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Set;
 
 public interface Crudservice<T,ID> {

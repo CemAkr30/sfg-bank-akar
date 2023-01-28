@@ -1,6 +1,7 @@
 package ca.springframework.sfgbankakar.bootstrap;
 
 
+import ca.springframework.sfgbankakar.enums.Cinsiyet;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Iletisim;
 import ca.springframework.sfgbankakar.model.Kimlik;
@@ -57,6 +58,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         kimlikLoader.setAdiSoyadi("Cem Akar");
       //  kimlikLoader.setCinsiyet(Cinsiyet.ERKEK);
         kimlikLoader.setKimlikNo("13195012392");
+        kimlikLoader.setCinsiyet(Cinsiyet.ERKEK);
 
         //1- data adres
         adresLoader.setBeyanAdres("Ankara/Yenimahalle Batıkent");
@@ -98,6 +100,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         kimlikBo.setAdiSoyadi("Berk Öncü");
       //  kimlikBo.setCinsiyet(Cinsiyet.ERKEK);
         kimlikBo.setKimlikNo("13205931832");
+        kimlikBo.setCinsiyet(Cinsiyet.ERKEK);
 
         adresBo.setEmail("berkoncu99@gmail.com");
         adresBo.setBeyanAdres("Ankara/Batıkent Kuzu mahallesi");

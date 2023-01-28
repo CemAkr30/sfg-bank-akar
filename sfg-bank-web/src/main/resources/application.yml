@@ -1,21 +1,13 @@
 spring:
   profiles:
-    active: prod
-
+    active:
+      - springdatajpa
+      - dev
+      - h2
 ca:
-  dbUserName: ymlUsername
-  dbPassword: ymlPassword
-  dbUrl: ymlUrl
+  dbUserName: ymlAppUsername
+  dbPassword: ymlAppPassword
+  dbUrl: ymlAppUrl
 
 server:
-    port: 9999
-
----
-
-spring:
-  profiles:
-    active: prod
-ca:
-  dbUserName: ymlprodUsername
-  dbPassword: ymlprodPassword
-  dbUrl: ymlprodUrl
+  port: 9999
