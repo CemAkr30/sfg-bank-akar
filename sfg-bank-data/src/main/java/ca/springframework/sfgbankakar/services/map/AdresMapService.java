@@ -3,12 +3,15 @@ package ca.springframework.sfgbankakar.services.map;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.Crudservice;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 //implements Crudservice<Adres,Long> çıkartıyoruz üst sınıf veriyoruz
-@Component
+@Service
+@Profile({"default", "map"})
 public class AdresMapService extends AbstractMapService<Adres,Long> implements AdresService {
 
     //Jpa taklit ettik, crudService methodları override ettirdi abstractmapservice de dbmiz gibi
@@ -48,8 +51,4 @@ public class AdresMapService extends AbstractMapService<Adres,Long> implements A
         return super.findById(id);
     }
 
-    @Override
-    public Adres findByBeyanAdres(String beyanAdres) {
-        return null;
-    }
 }

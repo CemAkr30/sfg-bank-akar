@@ -3,12 +3,15 @@ package ca.springframework.sfgbankakar.services.map;
 import ca.springframework.sfgbankakar.model.Iletisim;
 import ca.springframework.sfgbankakar.services.Crudservice;
 import ca.springframework.sfgbankakar.services.IletisimService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 //implements Crudservice<Iletisim,Long>
-@Component
+@Service
+@Profile({"default", "map"})
 public class IletisimMapService  extends AbstractMapService<Iletisim,Long> implements IletisimService {
 
 
@@ -47,8 +50,4 @@ public class IletisimMapService  extends AbstractMapService<Iletisim,Long> imple
         return super.findById(id);
     }
 
-    @Override
-    public Iletisim findByTelefonNo(String telefonNo) {
-        return null;
-    }
 }

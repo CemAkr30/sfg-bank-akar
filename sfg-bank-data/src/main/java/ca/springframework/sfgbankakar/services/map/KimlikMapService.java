@@ -4,13 +4,15 @@ import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.KimlikService;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 
 //Crudservice<Kimlik,Long>
-@Component
+@Service
+@Profile({"default", "map"})
 public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements KimlikService {
 
     private final AdresService adresService;

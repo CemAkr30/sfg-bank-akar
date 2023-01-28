@@ -8,7 +8,7 @@ import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class CinsiyetConverter implements AttributeConverter<Cinsiyet, Long> {
+public class CinsiyetConverter implements AttributeConverter<Cinsiyet, Long>{
 
     @Override
     public Long convertToDatabaseColumn(Cinsiyet type) {
