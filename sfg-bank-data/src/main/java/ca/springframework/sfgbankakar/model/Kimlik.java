@@ -42,6 +42,14 @@ public class Kimlik extends BaseEntity {
         this.adresSet.add(adres);
     }
 
+    public void addKullaniciGirisSet(KullaniciGiris kullaniciGiris){
+        this.kullaniciGirisSet.add(kullaniciGiris);
+    }
+
+
+    public Set<KullaniciGiris> getKullaniciGirisSet() {
+        return kullaniciGirisSet;
+    }
 
     public String getAdiSoyadi() {
         return adiSoyadi;
@@ -71,15 +79,7 @@ public class Kimlik extends BaseEntity {
         return adresSet;
     }
 
-    public void setAdresSet(Set<Adres> adresSet) {
-        this.adresSet = adresSet;
-    }
-
     public Set<Iletisim> getIletisimSet() {
         return iletisimSet;
-    }
-
-    public void setIletisimSet(Set<Iletisim> iletisimSet) {
-        this.iletisimSet = iletisimSet;
     }
 }

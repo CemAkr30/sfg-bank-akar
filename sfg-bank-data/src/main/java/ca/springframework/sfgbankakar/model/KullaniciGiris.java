@@ -13,30 +13,30 @@ public class KullaniciGiris  extends  BaseEntity {
     public KullaniciGiris() {
     }
 
-    @Column(name = "TELEFON_NO")
-    private String telefonNo;
+    @Column(name = "SIFRE")
+    private String sifre;
 
-    @Column(name = "EV_TELEFON_NO")
-    private String evTelefonNo;
+    @Column(name = "KULLANICI_KODU")
+    private String  kullaniciKodu;
 
     @ManyToOne
     private Kimlik kimlik;
 
 
-    public String getTelefonNo() {
-        return telefonNo;
+    public String getSifre() {
+        return sifre;
     }
 
-    public void setTelefonNo(String telefonNo) {
-        this.telefonNo = telefonNo;
+    public void setSifre(String sifre) {
+        this.sifre = sifre;
     }
 
-    public String getEvTelefonNo() {
-        return evTelefonNo;
+    public String getKullaniciKodu() {
+        return kullaniciKodu;
     }
 
-    public void setEvTelefonNo(String evTelefonNo) {
-        this.evTelefonNo = evTelefonNo;
+    public void setKullaniciKodu(String kullaniciKodu) {
+        this.kullaniciKodu = kullaniciKodu;
     }
 
     public Kimlik getKimlik() {

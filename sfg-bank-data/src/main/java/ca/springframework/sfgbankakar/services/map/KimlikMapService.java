@@ -1,5 +1,6 @@
 package ca.springframework.sfgbankakar.services.map;
 
+import ca.springframework.sfgbankakar.dto.KullaniciEkleDto;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.AdresService;
@@ -73,7 +74,7 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     }
 
     @Override
-    public Kimlik findByAdiSoyadi(String adiSoyadi) {
+    public KullaniciEkleDto kullaniciEkle(KullaniciEkleDto kullaniciEkleDto) {
         return null;
     }
 }

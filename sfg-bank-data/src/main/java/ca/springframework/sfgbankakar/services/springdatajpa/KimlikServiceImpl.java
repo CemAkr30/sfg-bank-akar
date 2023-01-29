@@ -1,8 +1,11 @@
 package ca.springframework.sfgbankakar.services.springdatajpa;
 
 
+import ca.springframework.sfgbankakar.dto.KullaniciEkleDto;
 import ca.springframework.sfgbankakar.model.Kimlik;
+import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
+import ca.springframework.sfgbankakar.repositories.KullaniciGirisRepository;
 import ca.springframework.sfgbankakar.services.KimlikService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -17,15 +20,19 @@ import java.util.Set;
 public class KimlikServiceImpl implements KimlikService {
 
     private final KimlikRepository kimlikRepository;
+    private final KullaniciGirisRepository kullaniciGirisRepository;
 
 
-    public KimlikServiceImpl(KimlikRepository kimlikRepository) {
+    public KimlikServiceImpl(KimlikRepository kimlikRepository,KullaniciGirisRepository kullaniciGirisRepository) {
         this.kimlikRepository = kimlikRepository;
+        this.kullaniciGirisRepository = kullaniciGirisRepository;
     }
 
 
     @Override
-    public Kimlik findByAdiSoyadi(String adiSoyadi) {
+    public KullaniciEkleDto kullaniciEkle(KullaniciEkleDto kullaniciEkleDto) {
+        Kimlik kimlik = new Kimlik();
+        KullaniciGiris kullaniciGiris = new KullaniciGiris();
         return null;
     }
 

@@ -3,8 +3,8 @@ package ca.springframework.sfgbankakar.controllers;
 
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.KimlikService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import ca.springframework.sfgbankakar.services.KullaniciGirisService;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
@@ -26,6 +26,12 @@ public class KimlikController {
     @GetMapping({"/kimlikList","/kimlikList.html"})
     public  Set<Kimlik> listKimliks(){
         return  kimlikService.findAll();
+    }
+
+
+    @PostMapping({"/kullanciEkle","/kullanciEkle.html"})
+    public String kullaniciEkle(@RequestBody Kimlik kimlik){
+        return "";
     }
 
 }
