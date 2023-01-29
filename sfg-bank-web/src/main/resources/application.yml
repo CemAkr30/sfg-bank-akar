@@ -4,6 +4,7 @@ spring:
       - springdatajpa
       - dev
       - h2
+      - mail
 ca:
   dbUserName: ymlAppUsername
   dbPassword: ymlAppPassword
