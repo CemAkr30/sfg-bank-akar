@@ -32,7 +32,8 @@ public class KimlikServiceImpl implements KimlikService {
     @Override
     public Set<Kimlik> findAll() {
         Set<Kimlik> kimlikSet = new HashSet<>();
-        kimlikRepository.findAll().forEach(kimlikSet::add);
+   //     kimlikRepository.findAll().forEach(kimlikSet::add);
+        kimlikRepository.findAll().iterator().forEachRemaining(kimlikSet::add);
         return kimlikSet;
     }
 
