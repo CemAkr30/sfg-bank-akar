@@ -76,13 +76,10 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         adresLoader.setKimlik(kimlikLoader);
         adresLoaderTwo.setKimlik(kimlikLoader);
 
-        adresLoaders.add(adresLoader);
-        adresLoaders.add(adresLoaderTwo);
 
-        iletisimLoaders.add(iletisimLoader);
-
-        kimlikLoader.setAdresSet(adresLoaders);
-        kimlikLoader.setIletisimSet(iletisimLoaders);
+        kimlikLoader.addAdresSet(adresLoader);
+        kimlikLoader.addAdresSet(adresLoaderTwo);
+        kimlikLoader.addIletisimSet(iletisimLoader);
 
 
         kimlikService.save(kimlikLoader);
@@ -115,14 +112,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         iletisimBo.setTelefonNo("05342431001");
         iletisimBo.setKimlik(kimlikBo);
 
-        adresLoadersTwo.add(adresBo);
-        adresLoadersTwo.add(adresBoTwo);
-
-        iletisimLoadersTwo.add(iletisimBo);
-
-
-        kimlikBo.setAdresSet(adresLoadersTwo);
-        kimlikBo.setIletisimSet(iletisimLoadersTwo);
+        kimlikBo.addAdresSet(adresBo);
+        kimlikBo.addAdresSet(adresBoTwo);
+        kimlikBo.addIletisimSet(iletisimBo);
 
 
         Adres adresBoThree = new Adres();
