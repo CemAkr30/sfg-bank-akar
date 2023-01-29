@@ -19,6 +19,7 @@ import java.util.Set;
 //hibernate tarafına mapleri göndererek crud işlemler yapılacaktır.
 public class KimlikServiceImpl implements KimlikService {
 
+
     private final KimlikRepository kimlikRepository;
     private final KullaniciGirisRepository kullaniciGirisRepository;
 
@@ -33,6 +34,7 @@ public class KimlikServiceImpl implements KimlikService {
     public KullaniciEkleDto kullaniciEkle(KullaniciEkleDto kullaniciEkleDto) {
         Kimlik kimlik = new Kimlik();
         KullaniciGiris kullaniciGiris = new KullaniciGiris();
+
         return null;
     }
 

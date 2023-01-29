@@ -2,6 +2,7 @@ package ca.springframework.sfgbankakar.services.springdatajpa;
 
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
+import ca.springframework.sfgbankakar.repositories.KullaniciGirisRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,12 +25,15 @@ class KimlikServiceImplTest {
     @Mock // taklit objesi oluşturuyoruz
     KimlikRepository kimlikRepository;
 
+    @Mock
+    KullaniciGirisRepository kullaniciGirisRepository;
+
 
     @BeforeEach
     public void setUp() throws Exception{
         MockitoAnnotations.openMocks(this); // ExtendWith  veya Runner kullanılmıyorsa, bu MockitoAnnotations kullanılmalı
 
-        kimlikService = new KimlikServiceImpl(kimlikRepository); // taklit objesini enjekte ettik
+        kimlikService = new KimlikServiceImpl(kimlikRepository,kullaniciGirisRepository); // taklit objesini enjekte ettik
     }
 
     @Test
