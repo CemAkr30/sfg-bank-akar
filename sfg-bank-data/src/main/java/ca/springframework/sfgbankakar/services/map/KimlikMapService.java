@@ -74,7 +74,7 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     }
 
     @Override
-    public KullaniciEkleDto kullaniciEkle(KullaniciEkleDto kullaniciEkleDto) {
+    public KullaniciEkleDto kullaniciEkle(Kimlik kimlik) {
         return null;
     }
 }

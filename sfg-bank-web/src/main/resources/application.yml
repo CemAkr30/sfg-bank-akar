@@ -3,7 +3,7 @@ spring:
     active:
       - springdatajpa
       - dev
-      - h2
+      - postgre
       - mail
 ca:
   dbUserName: ymlAppUsername

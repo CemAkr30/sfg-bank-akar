@@ -8,8 +8,16 @@ public class KullaniciEkleDto {
     private String telefonNo;
     private String adres;
     private String sifre;
-    private int cinsiyet;
+    private Long cinsiyet;
+    private boolean ekleControl;
 
+    public boolean isEkleControl() {
+        return ekleControl;
+    }
+
+    public void setEkleControl(boolean ekleControl) {
+        this.ekleControl = ekleControl;
+    }
 
     public String getKimlikNo() {
         return kimlikNo;
@@ -59,11 +67,11 @@ public class KullaniciEkleDto {
         this.sifre = sifre;
     }
 
-    public int getCinsiyet() {
+    public Long getCinsiyet() {
         return cinsiyet;
     }
 
-    public void setCinsiyet(int cinsiyet) {
+    public void setCinsiyet(Long cinsiyet) {
         this.cinsiyet = cinsiyet;
     }
 }

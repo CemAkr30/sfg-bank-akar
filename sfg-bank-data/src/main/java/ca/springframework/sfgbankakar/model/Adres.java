@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "ADRES")
+@Table(name = "ADRES" ,schema = "BANK")
 public class Adres  extends BaseEntity {
 
     public Adres() {
