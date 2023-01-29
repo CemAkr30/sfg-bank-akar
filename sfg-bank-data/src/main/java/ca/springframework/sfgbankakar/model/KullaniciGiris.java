@@ -1,13 +1,16 @@
 package ca.springframework.sfgbankakar.model;
 
 
+
+import ca.springframework.sfgbankakar.crypt.AES;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "KULLANICI_GIRIS")
+@Table(name = "KULLANICI_GIRIS" ,schema = "BANK")
 public class KullaniciGiris  extends  BaseEntity {
 
     public KullaniciGiris() {
@@ -28,6 +31,17 @@ public class KullaniciGiris  extends  BaseEntity {
     }
 
     public void setSifre(String sifre) {
+        String pass="";
+        if(sifre!=null){
+           try {
+               AES aes = new AES();
+               aes.init();
+               String encryptedMessage = aes.encrypt(sifre);
+               sifre =encryptedMessage;
+           }catch (Exception ignored){
+                throw new RuntimeException(ignored.getMessage());
+           }
+        }
         this.sifre = sifre;
     }
 

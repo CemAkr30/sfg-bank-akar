@@ -44,7 +44,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         iletisimService.deleteAll();
         kimlikService.deleteAll();
         adresService.deleteAll();
-        getLoaderData();
+//        getLoaderData();
         System.out.println("Loading Bootstrap Data");
     }
 

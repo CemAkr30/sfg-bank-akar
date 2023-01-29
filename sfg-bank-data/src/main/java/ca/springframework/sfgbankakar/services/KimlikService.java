@@ -6,7 +6,7 @@ import ca.springframework.sfgbankakar.model.Kimlik;
 public interface KimlikService extends Crudservice<Kimlik,Long> {
 
 
-    KullaniciEkleDto kullaniciEkle(KullaniciEkleDto kullaniciEkleDto);
+    KullaniciEkleDto kullaniciEkle(Kimlik kimlik);
 
     //TODO  base interface bunları kullandığı için gerek yok artık
 //    Kimlik findById(Long id);

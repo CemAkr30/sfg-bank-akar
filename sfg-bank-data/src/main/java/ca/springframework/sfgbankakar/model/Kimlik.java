@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "KIMLIK" )
+@Table(name = "KIMLIK" ,schema = "BANK")
 public class Kimlik extends BaseEntity {
 
     public Kimlik() {
@@ -81,5 +81,17 @@ public class Kimlik extends BaseEntity {
 
     public Set<Iletisim> getIletisimSet() {
         return iletisimSet;
+    }
+
+    public void setAdresSet(Set<Adres> adresSet) {
+        this.adresSet = adresSet;
+    }
+
+    public void setIletisimSet(Set<Iletisim> iletisimSet) {
+        this.iletisimSet = iletisimSet;
+    }
+
+    public void setKullaniciGirisSet(Set<KullaniciGiris> kullaniciGirisSet) {
+        this.kullaniciGirisSet = kullaniciGirisSet;
     }
 }

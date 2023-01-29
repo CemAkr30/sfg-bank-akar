@@ -1,6 +1,7 @@
 package ca.springframework.sfgbankakar.controllers;
 
 
+import ca.springframework.sfgbankakar.dto.KullaniciEkleDto;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.KimlikService;
 import ca.springframework.sfgbankakar.services.KullaniciGirisService;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
+@RequestMapping("/giris")
+@CrossOrigin("*") // Not: farklı localhost request atmak için
 public class KimlikController {
 
     private final KimlikService kimlikService;
@@ -17,21 +20,14 @@ public class KimlikController {
         this.kimlikService = kimlikService;
     }
 
-
-    @GetMapping({"/kimlik","/kimlik.html"})
-    public String kimlikPage(){
-        return "KIMLIK SAYFASINA HOŞGELDİN";
-    }
-
-    @GetMapping({"/kimlikList","/kimlikList.html"})
-    public  Set<Kimlik> listKimliks(){
+    @GetMapping("/kimlik")
+    public  Set<Kimlik> kimlikList(){
         return  kimlikService.findAll();
     }
 
-
-    @PostMapping({"/kullanciEkle","/kullanciEkle.html"})
-    public String kullaniciEkle(@RequestBody Kimlik kimlik){
-        return "";
+    @PostMapping("/kimlik")
+    public KullaniciEkleDto kullaniciEkle(@RequestBody Kimlik kimlik){
+        return kimlikService.kullaniciEkle(kimlik);
     }
 
 }
