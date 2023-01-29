@@ -52,7 +52,7 @@ public class ControllerConfig {
 
 //    @Bean
 //    KimlikService kimlikService(KimlikRepository kimlikRepository){
-//        return new KimlikSDService(kimlikRepository);
+//        return new KimlikServiceImpl(kimlikRepository);
 //    }
 
 

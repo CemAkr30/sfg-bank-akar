@@ -11,15 +11,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Profile("springdatajpa") // KimlikService türeyen 2 class biri KimlikSDService diğeri KimlikMapService Qualifer vermek yerine injection yaparken
+@Profile("springdatajpa") // KimlikService türeyen 2 class biri KimlikServiceImpl diğeri KimlikMapService Qualifer vermek yerine injection yaparken
 //profile olanlara göre injection gerçekleştir. MapService ile fake jpa yapmıştık  mantığı anlamak için ancak şimdi jpa kullanarak
 //hibernate tarafına mapleri göndererek crud işlemler yapılacaktır.
-public class KimlikSDService implements KimlikService {
+public class KimlikServiceImpl implements KimlikService {
 
     private final KimlikRepository kimlikRepository;
 
 
-    public KimlikSDService(KimlikRepository kimlikRepository) {
+    public KimlikServiceImpl(KimlikRepository kimlikRepository) {
         this.kimlikRepository = kimlikRepository;
     }
 

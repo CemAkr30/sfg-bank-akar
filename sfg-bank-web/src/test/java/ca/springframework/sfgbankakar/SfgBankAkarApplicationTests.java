@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SfgBankAkarApplicationTests {
 
-    @Test
+    @Test // app. contextleri control eder
     void contextLoads() {
     }
 
