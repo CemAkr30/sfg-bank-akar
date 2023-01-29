@@ -12,11 +12,11 @@ import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
-public class AdresSDService implements AdresService {
+public class AdresServiceImpl implements AdresService {
 
    private final AdresRepository adresRepository;
 
-    public AdresSDService(AdresRepository adresRepository) {
+    public AdresServiceImpl(AdresRepository adresRepository) {
         this.adresRepository = adresRepository;
     }
 

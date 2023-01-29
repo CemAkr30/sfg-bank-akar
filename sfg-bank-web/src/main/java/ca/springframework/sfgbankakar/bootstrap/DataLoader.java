@@ -62,9 +62,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         //1- data adres
         adresLoader.setBeyanAdres("Ankara/Yenimahalle Batıkent");
-        adresLoader.setEmail("cakar1905@gmail.com");
+        adresLoader.setEmail("byrankon18@gmail.com");
         //2-data adres
-        adresLoaderTwo.setEmail("cakar18@gmail.com");
+        adresLoaderTwo.setEmail("springtestmailtest@gmail.com");
 
         //1-data iletisim
 
@@ -136,6 +136,28 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     //    kimlikRepository.flush();
 
 //        kimlikService.print();
+
+
+        Kimlik kimlikSt = new Kimlik();
+        Adres adresSt = new Adres();
+        Adres adresBoSt = new Adres();
+        Iletisim iletisimSt = new Iletisim();
+
+        kimlikSt.setAdiSoyadi("St");
+        kimlikSt.setKimlikNo("13948528104");
+        kimlikSt.setCinsiyet(Cinsiyet.KADIN);
+
+        adresSt.setBeyanAdres("Ankara/Yenimahalle");
+        adresSt.setEmail("");
+        adresSt.setKimlik(kimlikSt);
+
+        iletisimSt.setKimlik(kimlikSt);
+        iletisimSt.setTelefonNo("05812492121");
+
+        kimlikSt.addAdresSet(adresSt);
+        kimlikSt.addIletisimSet(iletisimSt);
+
+        kimlikService.save(kimlikSt);
 
     }
 }

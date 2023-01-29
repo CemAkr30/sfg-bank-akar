@@ -12,11 +12,11 @@ import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
-public class IletisimSDService implements IletisimService {
+public class IletisimServiceImpl implements IletisimService {
 
     private final IletisimRepository iletisimRepository;
 
-    public IletisimSDService(IletisimRepository iletisimRepository) {
+    public IletisimServiceImpl(IletisimRepository iletisimRepository) {
         this.iletisimRepository = iletisimRepository;
     }
 
