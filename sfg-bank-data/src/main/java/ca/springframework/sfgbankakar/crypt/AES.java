@@ -1,60 +1,97 @@
 package ca.springframework.sfgbankakar.crypt;
 
+
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.GCMParameterSpec;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.security.spec.KeySpec;
 import java.util.Base64;
+
 
 public class AES {
 
-    private SecretKey key;
-    private int KEY_SIZE =128;
-    private int T_LEN =128;
-    private Cipher encryptionCipher;
+    private static final String SECRET_KEY
+            = "my_super_secret_key_ho_ho_ho";
 
-    public  void init() throws Exception{
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(KEY_SIZE);
-        key = keyGenerator.generateKey();
+    private static final String SALT = "ssshhhhhhhhhhh!!!!";
+
+
+    public static String encrypt(String strToEncrypt)
+    {
+        try {
+            // Create default byte array
+            byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0 };
+            IvParameterSpec ivspec
+                    = new IvParameterSpec(iv);
+
+            SecretKeyFactory factory
+                    = SecretKeyFactory.getInstance(
+                    "PBKDF2WithHmacSHA256");
+
+            KeySpec spec = new PBEKeySpec(
+                    SECRET_KEY.toCharArray(), SALT.getBytes(),
+                    65536, 256);
+            SecretKey tmp = factory.generateSecret(spec);
+            SecretKeySpec secretKey = new SecretKeySpec(
+                    tmp.getEncoded(), "AES");
+
+            Cipher cipher = Cipher.getInstance(
+                    "AES/CBC/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey,
+                    ivspec);
+            // Return encrypted string
+            return Base64.getEncoder().encodeToString(
+                    cipher.doFinal(strToEncrypt.getBytes(
+                            StandardCharsets.UTF_8)));
+        }
+        catch (Exception e) {
+           throw new IllegalArgumentException("Error while encrypting: "
+                    + e.toString());
+        }
     }
 
-    public String encrypt(String message) throws  Exception {
-        byte[] messageInBytes = message.getBytes();
-        encryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
-        encryptionCipher.init(Cipher.ENCRYPT_MODE,key);
-        byte[] encryptedBytes = encryptionCipher.doFinal(messageInBytes);
-        return encode(encryptedBytes);
-    }
+    public static String decrypt(String strToDecrypt)
+    {
+        try {
 
-    public String decrypt(String encryptedMessage) throws  Exception {
-        byte[] messageInBytes = decode(encryptedMessage);
-        Cipher decryptionCipher = Cipher.getInstance("AES/GCM/NoPadding");
-        GCMParameterSpec spec = new GCMParameterSpec(T_LEN,encryptionCipher.getIV());
-        decryptionCipher.init(Cipher.DECRYPT_MODE,key,spec);
-        byte[] decryptedBytes = decryptionCipher.doFinal(messageInBytes);
-        return new String(decryptedBytes);
-    }
+            // Default byte array
+            byte[] iv = { 0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0 };
+            // Create IvParameterSpec object and assign with
+            // constructor
+            IvParameterSpec ivspec
+                    = new IvParameterSpec(iv);
 
-    private String encode(byte[] data){
-        return Base64.getEncoder().encodeToString(data);
-    }
+            // Create SecretKeyFactory Object
+            SecretKeyFactory factory
+                    = SecretKeyFactory.getInstance(
+                    "PBKDF2WithHmacSHA256");
 
-    private byte[] decode(String data){
-        return Base64.getDecoder().decode(data);
-    }
+            // Create KeySpec object and assign with
+            // constructor
+            KeySpec spec = new PBEKeySpec(
+                    SECRET_KEY.toCharArray(), SALT.getBytes(),
+                    65536, 256);
+            SecretKey tmp = factory.generateSecret(spec);
+            SecretKeySpec secretKey = new SecretKeySpec(
+                    tmp.getEncoded(), "AES");
 
-//    public  static  void main(String[] args){
-//        try{
-//            AES aes = new AES();
-//            aes.init();
-//         String encryptedMessage =   aes.encrypt("Haydarcan Özdemir");
-//         String decryptedMessage = aes.decrypt(encryptedMessage);
-//
-//         System.out.println("Encrypted Message" + encryptedMessage);
-//            System.out.println("Decrypted Message" + decryptedMessage);
-//        }catch (Exception e){
-//
-//        }
-//    }
+            Cipher cipher = Cipher.getInstance(
+                    "AES/CBC/PKCS5PADDING");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey,
+                    ivspec);
+            // Return decrypted string
+            return new String(cipher.doFinal(
+                    Base64.getDecoder().decode(strToDecrypt)));
+        }
+        catch (Exception e) {
+            throw new IllegalArgumentException("Error while encrypting: "
+                    + e.toString());
+        }
+    }
 }

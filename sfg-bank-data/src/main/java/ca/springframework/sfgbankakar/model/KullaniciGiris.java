@@ -31,16 +31,8 @@ public class KullaniciGiris  extends  BaseEntity {
     }
 
     public void setSifre(String sifre) {
-        String pass="";
         if(sifre!=null){
-           try {
-               AES aes = new AES();
-               aes.init();
-               String encryptedMessage = aes.encrypt(sifre);
-               sifre =encryptedMessage;
-           }catch (Exception ignored){
-                throw new RuntimeException(ignored.getMessage());
-           }
+            sifre =  AES.encrypt(sifre);
         }
         this.sifre = sifre;
     }

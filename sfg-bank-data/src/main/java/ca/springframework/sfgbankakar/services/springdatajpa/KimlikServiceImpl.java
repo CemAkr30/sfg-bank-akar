@@ -17,6 +17,7 @@ import ca.springframework.sfgbankakar.services.KimlikService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,6 +47,7 @@ public class KimlikServiceImpl implements KimlikService {
         kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKimlik(kimlik));
         kimlikRepository.save(kimlik);
         dto.setEkleControl(true);
+
         return dto;
     }
 
