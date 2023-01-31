@@ -2,11 +2,14 @@ package ca.springframework.sfgbankakar.controllers;
 
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.KimlikService;
-import org.h2.index.Index;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +28,13 @@ class KimlikControllerTest {
     public void setUp() throws Exception{
         MockitoAnnotations.openMocks(this);
         kimlikController = new KimlikController(kimlikService);
+    }
+
+    @Test
+    public void testMockMVC() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(kimlikController).build();// kimlikController build ederek taklit objesi oluşturur http katmanında
+        mockMvc.perform(MockMvcRequestBuilders.get("/giris/kimlik"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
