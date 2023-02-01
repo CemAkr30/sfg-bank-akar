@@ -77,4 +77,10 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     public KullaniciEkleDto kullaniciEkle(Kimlik kimlik) {
         return null;
     }
+
+    @Override
+    public Kimlik findByAdiSoyadi(String adiSoyadi) {
+        return null;
+    }
+
 }

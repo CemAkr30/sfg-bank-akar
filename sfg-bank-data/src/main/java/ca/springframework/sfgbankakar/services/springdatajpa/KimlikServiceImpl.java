@@ -42,6 +42,12 @@ public class KimlikServiceImpl implements KimlikService {
     }
 
     @Override
+    public Kimlik findByAdiSoyadi(String adiSoyadi) {
+        return kimlikRepository.findByAdiSoyadi(adiSoyadi);
+    }
+
+
+    @Override
     public Set<Kimlik> findAll() {
         Set<Kimlik> kimlikSet = new HashSet<>();
    //     kimlikRepository.findAll().forEach(kimlikSet::add);
