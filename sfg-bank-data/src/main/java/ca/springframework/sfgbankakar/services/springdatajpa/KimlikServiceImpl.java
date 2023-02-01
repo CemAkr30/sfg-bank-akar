@@ -37,7 +37,7 @@ public class KimlikServiceImpl implements KimlikService {
         kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKimlik(kimlik));
         kimlikRepository.save(kimlik);
         dto.setEkleControl(true);
-
+        dto.setAdSoyadi(kimlik.getAdiSoyadi());
         return dto;
     }
 
