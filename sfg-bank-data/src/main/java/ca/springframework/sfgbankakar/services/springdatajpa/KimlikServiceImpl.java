@@ -1,23 +1,13 @@
 package ca.springframework.sfgbankakar.services.springdatajpa;
 
 
-import ca.springframework.sfgbankakar.converters.CinsiyetConverter;
-import ca.springframework.sfgbankakar.crypt.AES;
 import ca.springframework.sfgbankakar.dto.KullaniciEkleDto;
-import ca.springframework.sfgbankakar.enums.Cinsiyet;
-import ca.springframework.sfgbankakar.model.Adres;
-import ca.springframework.sfgbankakar.model.Iletisim;
 import ca.springframework.sfgbankakar.model.Kimlik;
-import ca.springframework.sfgbankakar.model.KullaniciGiris;
-import ca.springframework.sfgbankakar.repositories.AdresRepository;
-import ca.springframework.sfgbankakar.repositories.IletisimRepository;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
-import ca.springframework.sfgbankakar.repositories.KullaniciGirisRepository;
 import ca.springframework.sfgbankakar.services.KimlikService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.Set;
 
