@@ -4,8 +4,11 @@ import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.KimlikService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -17,17 +20,29 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@ExtendWith(MockitoExtension.class) // sayesinde  MockitoAnnotations.openMocks(this); kullanmaya gerek kalmadı
 class KimlikControllerTest {
 
     @Mock
     KimlikService kimlikService;
 
-    KimlikController kimlikController;
+    @InjectMocks
+    KimlikController kimlikController; // InjectMocks sayesinde setUp tarafında injection yapmaya gerek kalmadı
+
+    Set<Kimlik> kimlikSet;
+
+    MockMvc mockMvc;
 
     @BeforeEach
     public void setUp() throws Exception{
-        MockitoAnnotations.openMocks(this);
-        kimlikController = new KimlikController(kimlikService);
+        //MockitoAnnotations.openMocks(this);
+
+        kimlikSet = new HashSet<>();
+        kimlikSet.add(new Kimlik());
+        kimlikSet.add(new Kimlik());
+
+        mockMvc = MockMvcBuilders.standaloneSetup(kimlikController)
+                .build();
     }
 
     @Test
@@ -39,9 +54,6 @@ class KimlikControllerTest {
 
     @Test
     void kimlikList() throws Exception {
-        Set<Kimlik> kimlikSet = new HashSet<>();
-        kimlikSet.add(new Kimlik());
-        kimlikSet.add(new Kimlik());
 
         when(kimlikService.findAll()).thenReturn(kimlikSet);
 
