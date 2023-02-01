@@ -41,9 +41,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        iletisimService.deleteAll();
-        kimlikService.deleteAll();
-        adresService.deleteAll();
+//        iletisimService.deleteAll();
+//        kimlikService.deleteAll();
+//        adresService.deleteAll();
         getLoaderData();
         System.out.println("Loading Bootstrap Data");
     }

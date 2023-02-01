@@ -14,14 +14,11 @@ import java.util.Set;
 
 @RequestMapping("BANKSISTEM/login")
 @RestController
+@CrossOrigin("*")
 public class KullaniciGirisController {
 
     @Autowired
     private EmailService emailService;
-
-    @Autowired
-    private KimlikService kimlikService;
-
 
     @Autowired
     private KullaniciGirisService kullaniciGirisService;
@@ -33,19 +30,19 @@ public class KullaniciGirisController {
       Boolean aBoolean =   kullaniciGirisService.loginControl(kullaniciGiris);
       return aBoolean.booleanValue();
     }
-
-    @GetMapping({"/giris","/giris.html"})
-    public String sendMail(){
-       Set<Kimlik> kimlikSet = kimlikService.findAll();
-       Set<Adres> adresSet=null;
-        for ( Kimlik kimlik : kimlikSet) {
-            adresSet = kimlik.getAdresSet();
-            for(Adres adres : adresSet) {
-                emailService.send(adres.getEmail(), "springtestmailtest@gmail.com",
-                        "İlk mail entegrasyonumuz <3 Author:CA");
-            }
-        }
-        return "Başarılı Mail";
-    }
+//
+//    @PostMapping("/loginOnay/{kimlikNo}")
+//    public String sendMail(@PathVariable("kimlikNo") String kimlikNo){
+//       Set<Kimlik> kimlikSet = kimlikService.findAll();
+//       Set<Adres> adresSet=null;
+//        for ( Kimlik kimlik : kimlikSet) {
+//            adresSet = kimlik.getAdresSet();
+//            for(Adres adres : adresSet) {
+//                emailService.send(adres.getEmail(), "springtestmailtest@gmail.com",
+//                        "AkarBank tarafından doğrulama Kodu gönderilecektir.");
+//            }
+//        }
+//        return "Başarılı Mail";
+//    }
 
 }

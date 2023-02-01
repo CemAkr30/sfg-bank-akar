@@ -1,5 +1,6 @@
 package ca.springframework.sfgbankakar.services.springdatajpa;
 
+import ca.springframework.sfgbankakar.crypt.AES;
 import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.repositories.KullaniciGirisRepository;
 import ca.springframework.sfgbankakar.services.KullaniciGirisService;
@@ -27,5 +28,10 @@ public class KullaniciGirisServiceImpl implements KullaniciGirisService {
             aBoolean = Boolean.TRUE;
         }
      return aBoolean;
+    }
+
+    @Override
+    public KullaniciGiris loginOnay(String kimlikNo) {
+        return null;
     }
 }
