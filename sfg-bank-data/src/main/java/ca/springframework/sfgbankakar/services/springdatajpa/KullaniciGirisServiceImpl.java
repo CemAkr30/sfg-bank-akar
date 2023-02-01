@@ -1,14 +1,11 @@
 package ca.springframework.sfgbankakar.services.springdatajpa;
 
-import ca.springframework.sfgbankakar.crypt.AES;
 import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.repositories.KullaniciGirisRepository;
 import ca.springframework.sfgbankakar.services.KullaniciGirisService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @Profile("springdatajpa")
