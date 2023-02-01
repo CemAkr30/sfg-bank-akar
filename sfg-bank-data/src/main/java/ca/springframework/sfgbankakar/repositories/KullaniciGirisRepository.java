@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface KullaniciGirisRepository extends JpaRepository<KullaniciGiris,Long> {
 
+    KullaniciGiris findByKullaniciKoduAndSifre(String kullaniciKodu,String sifre);
 }

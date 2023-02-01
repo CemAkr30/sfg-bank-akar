@@ -3,14 +3,16 @@ package ca.springframework.sfgbankakar.controllers;
 
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Kimlik;
+import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.services.KimlikService;
+import ca.springframework.sfgbankakar.services.KullaniciGirisService;
 import ca.springframework.sfgbankakar.services.mailSender.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
 
+@RequestMapping("BANKSISTEM/login")
 @RestController
 public class KullaniciGirisController {
 
@@ -19,6 +21,18 @@ public class KullaniciGirisController {
 
     @Autowired
     private KimlikService kimlikService;
+
+
+    @Autowired
+    private KullaniciGirisService kullaniciGirisService;
+
+
+    @RequestMapping("/auth")
+    @PostMapping
+    public boolean authLogin(@RequestBody KullaniciGiris kullaniciGiris){
+      Boolean aBoolean =   kullaniciGirisService.loginControl(kullaniciGiris);
+      return aBoolean.booleanValue();
+    }
 
     @GetMapping({"/giris","/giris.html"})
     public String sendMail(){

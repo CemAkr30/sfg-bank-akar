@@ -19,36 +19,13 @@ public class KullaniciGirisServiceImpl implements KullaniciGirisService {
         this.kullaniciGirisRepository = kullaniciGirisRepository;
     }
 
-
     @Override
-    public Set<KullaniciGiris> findAll() {
-        Set<KullaniciGiris> kullaniciGirisSet = new HashSet<>();
-        kullaniciGirisRepository.findAll().forEach(kullaniciGirisSet::add);
-        return kullaniciGirisSet;
-    }
-
-    @Override
-    public KullaniciGiris findById(Long aLong) {
-        return kullaniciGirisRepository.findById(aLong).orElse(null);
-    }
-
-    @Override
-    public KullaniciGiris save(KullaniciGiris object) {
-        return kullaniciGirisRepository.save(object);
-    }
-
-    @Override
-    public void delete(KullaniciGiris object) {
-        kullaniciGirisRepository.delete(object);
-    }
-
-    @Override
-    public void deleteById(Long aLong) {
-        kullaniciGirisRepository.deleteById(aLong);
-    }
-
-    @Override
-    public void deleteAll() {
-        kullaniciGirisRepository.deleteAll();
+    public Boolean loginControl(KullaniciGiris kullaniciGiris) {
+        Boolean aBoolean = Boolean.FALSE;
+        KullaniciGiris login = kullaniciGirisRepository.findByKullaniciKoduAndSifre(kullaniciGiris.getKullaniciKodu(),kullaniciGiris.getSifre());
+        if(login!=null){
+            aBoolean = Boolean.TRUE;
+        }
+     return aBoolean;
     }
 }
