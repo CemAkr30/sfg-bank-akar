@@ -2,6 +2,7 @@ package ca.springframework.sfgbankakar.model;
 
 
 import ca.springframework.sfgbankakar.enums.Cinsiyet;
+import lombok.Builder;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -10,6 +11,22 @@ import java.util.Set;
 @Entity
 @Table(name = "KIMLIK" ,schema = "BANK")
 public class Kimlik extends BaseEntity {
+
+    @Builder
+    public Kimlik(String adiSoyadi, Cinsiyet cinsiyet, String kimlikNo, Set<Adres> adresSet, Set<Iletisim> iletisimSet, Set<KullaniciGiris> kullaniciGirisSet) {
+        this.adiSoyadi = adiSoyadi;
+        this.cinsiyet = cinsiyet;
+        this.kimlikNo = kimlikNo;
+        if(adresSet!=null) {
+            this.adresSet = adresSet;
+        }
+        if(iletisimSet!=null) {
+            this.iletisimSet = iletisimSet;
+        }
+        if(kullaniciGirisSet!=null) {
+            this.kullaniciGirisSet = kullaniciGirisSet;
+        }
+    }
 
     public Kimlik() {
     }
