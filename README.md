@@ -1,0 +1,2 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/CemAkr30/sfg-bank-akar/tree/release.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/CemAkr30/sfg-bank-akar/tree/release)
+# Spring Framework Ca Bank
