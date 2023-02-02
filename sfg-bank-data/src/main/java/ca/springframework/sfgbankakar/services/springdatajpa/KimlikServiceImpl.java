@@ -47,6 +47,11 @@ public class KimlikServiceImpl implements KimlikService {
         return kimlikRepository.findByAdiSoyadi(adiSoyadi);
     }
 
+    @Override
+    public Kimlik findByKimlikNo(String kimlikNo) {
+        return kimlikRepository.findByKimlikNo(kimlikNo);
+    }
+
 
     @Override
     public Set<Kimlik> findAll() {

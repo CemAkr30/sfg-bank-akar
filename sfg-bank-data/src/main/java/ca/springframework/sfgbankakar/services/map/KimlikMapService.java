@@ -83,4 +83,9 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
         return null;
     }
 
+    @Override
+    public Kimlik findByKimlikNo(String kimlikNo) {
+        return null;
+    }
+
 }

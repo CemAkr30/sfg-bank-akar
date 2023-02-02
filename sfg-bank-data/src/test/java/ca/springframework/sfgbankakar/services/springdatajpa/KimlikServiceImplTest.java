@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class KimlikServiceImplTest {
 
-    @InjectMocks //@Mockları injection eder setUp gerek kalmadı
+    @InjectMocks //@Mockları injection eder setUp gerek kalmadı -> kimlikService = new KimlikServiceImpl(kimlikRepository);
     KimlikServiceImpl kimlikService;
 
     @Mock // taklit objesi oluşturuyoruz
