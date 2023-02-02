@@ -30,8 +30,7 @@ public class KullaniciGirisServiceImpl implements KullaniciGirisService {
         Kimlik kimlik = kimlikService.findByKimlikNo(login.getKullaniciKodu());
         authLoginDto.setLoginOnay(false);
         for (Adres adres : kimlik.getAdresSet()) {
-            authLoginDto.setEmail(adres
-                    .getEmail());
+            authLoginDto.setEmail(adres.getEmail());
             break;
         }
         if (login != null) {
