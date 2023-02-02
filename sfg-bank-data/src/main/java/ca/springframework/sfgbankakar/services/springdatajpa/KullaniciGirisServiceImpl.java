@@ -25,19 +25,19 @@ public class KullaniciGirisServiceImpl implements KullaniciGirisService {
 
     @Override
     public AuthLoginDto loginControl(KullaniciGiris kullaniciGiris) {
-        AuthLoginDto authLoginDto =  new AuthLoginDto();
-        KullaniciGiris login = kullaniciGirisRepository.findByKullaniciKoduAndSifre(kullaniciGiris.getKullaniciKodu(),kullaniciGiris.getSifre());
-        Kimlik kimlik =  kimlikService.findByKimlikNo(login.getKullaniciKodu());
+        AuthLoginDto authLoginDto = new AuthLoginDto();
+        KullaniciGiris login = kullaniciGirisRepository.findByKullaniciKoduAndSifre(kullaniciGiris.getKullaniciKodu(), kullaniciGiris.getSifre());
+        Kimlik kimlik = kimlikService.findByKimlikNo(login.getKullaniciKodu());
         authLoginDto.setLoginOnay(false);
-        for(Adres adres : kimlik.getAdresSet()) {
+        for (Adres adres : kimlik.getAdresSet()) {
             authLoginDto.setEmail(adres
-            .getEmail());
+                    .getEmail());
             break;
         }
-        if(login!=null){
+        if (login != null) {
             authLoginDto.setLoginOnay(true);
         }
-     return authLoginDto;
+        return authLoginDto;
     }
 
     @Override
