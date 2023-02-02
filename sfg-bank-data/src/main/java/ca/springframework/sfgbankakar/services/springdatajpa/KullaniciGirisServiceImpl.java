@@ -29,10 +29,12 @@ public class KullaniciGirisServiceImpl implements KullaniciGirisService {
         KullaniciGiris login = kullaniciGirisRepository.findByKullaniciKoduAndSifre(kullaniciGiris.getKullaniciKodu(), kullaniciGiris.getSifre());
         Kimlik kimlik = kimlikService.findByKimlikNo(login.getKullaniciKodu());
         authLoginDto.setLoginOnay(false);
+
         for (Adres adres : kimlik.getAdresSet()) {
             authLoginDto.setEmail(adres.getEmail());
             break;
         }
+
         if (login != null) {
             authLoginDto.setLoginOnay(true);
         }
