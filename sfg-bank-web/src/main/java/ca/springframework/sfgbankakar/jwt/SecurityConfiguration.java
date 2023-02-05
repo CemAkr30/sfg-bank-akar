@@ -28,9 +28,9 @@ public class SecurityConfiguration {
         httpSecurity
                 .csrf()
                 .disable()
-                .authorizeRequests()
-                .antMatchers("/api/v1/auth/**")
-                .permitAll()
+                .authorizeRequests()// yetkilendirme yapılacak
+                .antMatchers("/api/v1/auth/**") // burda ki methodlara istekleri önemseme
+                .permitAll() // bütün herkes için
                 .anyRequest()
                 .authenticated()
                 .and()

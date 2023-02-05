@@ -43,7 +43,10 @@ public class ApplicationConfig {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
-
+/*
+* Authentication Manager bir interfacedir ve kimlik doğrulama metodu çalıştırılmaktadır.
+* Authentication Manager bir interface olup, Authentication Provider'a gönderir. Kimlik doğrulama işlemlerinde
+* hangi tipte bir doğrulama işleminin yapılacağını Authentication Provider'a bildirir.*/
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

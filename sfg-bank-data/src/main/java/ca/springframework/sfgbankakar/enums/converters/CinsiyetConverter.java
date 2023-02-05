@@ -1,4 +1,4 @@
-//package ca.springframework.sfgbankakar.converters;
+//package ca.springframework.sfgbankakar.enums.converters;
 //
 //
 //

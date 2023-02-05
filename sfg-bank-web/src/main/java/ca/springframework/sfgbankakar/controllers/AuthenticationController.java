@@ -1,10 +1,8 @@
 package ca.springframework.sfgbankakar.controllers;
 
 
-import ca.springframework.sfgbankakar.dto.AuthLoginDto;
+import ca.springframework.sfgbankakar.commands.KimlikCommand;
 import ca.springframework.sfgbankakar.dto.AuthenticatioRequest;
-import ca.springframework.sfgbankakar.model.KullaniciGiris;
-import ca.springframework.sfgbankakar.services.KullaniciGirisService;
 import ca.springframework.sfgbankakar.services.jwtService.AuthenticationService;
 import ca.springframework.sfgbankakar.dto.AuthenticationResponse;
 import ca.springframework.sfgbankakar.dto.RegisterRequest;
@@ -29,8 +27,8 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
-        return ResponseEntity.ok(authenticationServiceervice.register(request)); //kayıt aşaması
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody KimlikCommand registerRequest){
+        return ResponseEntity.ok(authenticationServiceervice.register(registerRequest)); //kayıt aşaması
     }
 
    // @PreAuthorize("hasAuthority('ROLE_ADMIN')")

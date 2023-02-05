@@ -138,7 +138,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         kimlikBo.addAdresSet(adresBoThree);
 
         KullaniciGiris kullaniciGirisBo = KullaniciGiris.builder()
-                .kimlik(kimlikLoader)
+                .kimlik(kimlikBo)
                 .username("148295018281")
                 .password(passwordEncoder.encode("1903"))
                 .role(Role.USER)
@@ -167,7 +167,7 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
 
         KullaniciGiris kullaniciGirisSt = KullaniciGiris.builder()
-                .kimlik(kimlikLoader)
+                .kimlik(kimlikSt)
                 .username("14859281058")
                 .password(passwordEncoder.encode("1907"))
                 .role(Role.USER)
