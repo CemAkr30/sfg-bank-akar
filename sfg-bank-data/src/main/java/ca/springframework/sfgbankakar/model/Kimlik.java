@@ -3,8 +3,10 @@ package ca.springframework.sfgbankakar.model;
 
 import ca.springframework.sfgbankakar.enums.Cinsiyet;
 import lombok.Builder;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,14 +34,16 @@ public class Kimlik extends BaseEntity {
     public Kimlik() {
     }
 
-    @Column(name = "ADI_SOYADI",nullable = true)
+    @NotNull
+    @Column(name = "ADI_SOYADI")
     private String adiSoyadi;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "CINSIYET")
     private Cinsiyet cinsiyet;
 
-    @Column(name = "KIMLIK_NO",length = 11,nullable = true)
+    @NotNull
+    @Column(name = "KIMLIK_NO")
     private String kimlikNo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
@@ -48,6 +52,7 @@ public class Kimlik extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
     private Set<Iletisim> iletisimSet = new HashSet<>();
 
+    @NotNull
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
     private KullaniciGiris kullaniciGiris;
 

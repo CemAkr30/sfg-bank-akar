@@ -3,12 +3,20 @@ package ca.springframework.sfgbankakar.controllers;
 
 import ca.springframework.sfgbankakar.commands.KimlikCommand;
 import ca.springframework.sfgbankakar.dto.AuthenticatioRequest;
+import ca.springframework.sfgbankakar.exception.AuthenticationException;
 import ca.springframework.sfgbankakar.services.jwtService.AuthenticationService;
 import ca.springframework.sfgbankakar.dto.AuthenticationResponse;
 import ca.springframework.sfgbankakar.dto.RegisterRequest;
+import ca.springframework.sfgbankakar.validators.AuthenticationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -22,12 +30,23 @@ public class AuthenticationController {
     @Autowired
     private final AuthenticationService authenticationServiceervice;
 
+
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder){
+        webDataBinder.addValidators(new AuthenticationValidator());
+    }
+
     public AuthenticationController(AuthenticationService authenticationServiceervice) {
         this.authenticationServiceervice = authenticationServiceervice;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(@RequestBody KimlikCommand registerRequest){
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody KimlikCommand registerRequest,
+                                                           BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+          // System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());
+           throw new AuthenticationException(bindingResult.getAllErrors().get(0).getDefaultMessage());
+        }
         return ResponseEntity.ok(authenticationServiceervice.register(registerRequest)); //kayıt aşaması
     }
 
