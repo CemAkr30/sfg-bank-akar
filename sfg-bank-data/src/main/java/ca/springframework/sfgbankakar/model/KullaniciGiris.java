@@ -1,55 +1,68 @@
 package ca.springframework.sfgbankakar.model;
 
+import javax.persistence.*;
 
+import ca.springframework.sfgbankakar.enums.Role;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import ca.springframework.sfgbankakar.crypt.AES;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "KULLANICI_GIRIS" ,schema = "BANK")
-public class KullaniciGiris  extends  BaseEntity {
+public class KullaniciGiris  extends  BaseEntity implements UserDetails {
 
-    public KullaniciGiris() {
-    }
+    @Column(name = "PASSWORD")
+    private String password;
 
-    @Column(name = "SIFRE")
-    private String sifre;
+    @Column(name = "USERNAME")
+    private String  username;
 
-    @Column(name = "KULLANICI_KODU")
-    private String  kullaniciKodu;
-
-    @ManyToOne
+    @OneToOne
     private Kimlik kimlik;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public String getSifre() {
-        return sifre;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setSifre(String sifre) {
-        if(sifre!=null){
-            sifre =  AES.encrypt(sifre);
-        }
-        this.sifre = sifre;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public String getKullaniciKodu() {
-        return kullaniciKodu;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public void setKullaniciKodu(String kullaniciKodu) {
-        this.kullaniciKodu = kullaniciKodu;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public Kimlik getKimlik() {
-        return kimlik;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setKimlik(Kimlik kimlik) {
-        this.kimlik = kimlik;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

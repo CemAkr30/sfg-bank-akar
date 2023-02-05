@@ -2,14 +2,18 @@ package ca.springframework.sfgbankakar.bootstrap;
 
 
 import ca.springframework.sfgbankakar.enums.Cinsiyet;
+import ca.springframework.sfgbankakar.enums.Role;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Iletisim;
 import ca.springframework.sfgbankakar.model.Kimlik;
+import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.IletisimService;
 import ca.springframework.sfgbankakar.services.KimlikService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +28,13 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final KimlikService kimlikService;
     private final IletisimService iletisimService;
     private final AdresService adresService;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataLoader(KimlikService kimlikService, IletisimService iletisimService, AdresService adresService) {
+    public DataLoader(KimlikService kimlikService, IletisimService iletisimService, AdresService adresService, PasswordEncoder passwordEncoder) {
         this.kimlikService = kimlikService;
         this.iletisimService = iletisimService;
         this.adresService = adresService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 //    public DataLoader() {
@@ -41,9 +47,9 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-//        iletisimService.deleteAll();
-//        kimlikService.deleteAll();
-//        adresService.deleteAll();
+        iletisimService.deleteAll();
+        kimlikService.deleteAll();
+        adresService.deleteAll();
         getLoaderData();
         System.out.println("Loading Bootstrap Data");
     }
@@ -76,16 +82,23 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         adresLoader.setKimlik(kimlikLoader);
         adresLoaderTwo.setKimlik(kimlikLoader);
 
+        KullaniciGiris kullaniciGirisCa = KullaniciGiris.builder()
+                .kimlik(kimlikLoader)
+                .username("13184028391")
+                .password(passwordEncoder.encode("1905"))
+                .role(Role.ADMIN)
+                .build();
 
+        kimlikLoader.setKullaniciGiris(kullaniciGirisCa);
         kimlikLoader.addAdresSet(adresLoader);
         kimlikLoader.addAdresSet(adresLoaderTwo);
         kimlikLoader.addIletisimSet(iletisimLoader);
 
 
         kimlikService.save(kimlikLoader);
-//        kimlikService.flush();
 
-        //
+
+        //**
 
         Kimlik kimlikBo = new Kimlik();
         Set<Adres> adresLoadersTwo = new HashSet<>();
@@ -124,11 +137,17 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
 
         kimlikBo.addAdresSet(adresBoThree);
 
+        KullaniciGiris kullaniciGirisBo = KullaniciGiris.builder()
+                .kimlik(kimlikLoader)
+                .username("148295018281")
+                .password(passwordEncoder.encode("1903"))
+                .role(Role.USER)
+                .build();
+
+        kimlikBo.setKullaniciGiris(kullaniciGirisBo);
         kimlikService.save(kimlikBo);
-    //    kimlikRepository.flush();
 
-//        kimlikService.print();
-
+        //*****
 
         Kimlik kimlikSt = new Kimlik();
         Adres adresSt = new Adres();
@@ -146,6 +165,15 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         iletisimSt.setKimlik(kimlikSt);
         iletisimSt.setTelefonNo("05812492121");
 
+
+        KullaniciGiris kullaniciGirisSt = KullaniciGiris.builder()
+                .kimlik(kimlikLoader)
+                .username("14859281058")
+                .password(passwordEncoder.encode("1907"))
+                .role(Role.USER)
+                .build();
+
+        kimlikSt.setKullaniciGiris(kullaniciGirisSt);
         kimlikSt.addAdresSet(adresSt);
         kimlikSt.addIletisimSet(iletisimSt);
 
