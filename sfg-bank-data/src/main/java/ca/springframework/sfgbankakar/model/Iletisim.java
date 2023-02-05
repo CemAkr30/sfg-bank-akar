@@ -1,18 +1,25 @@
 package ca.springframework.sfgbankakar.model;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "ILETISIM" ,schema = "BANK")
 public class Iletisim extends BaseEntity {
-
-
-    public Iletisim() {
-    }
 
     @Column(name = "TELEFON_NO")
     private String telefonNo;
@@ -22,29 +29,4 @@ public class Iletisim extends BaseEntity {
 
     @ManyToOne
     private Kimlik kimlik;
-
-
-    public String getTelefonNo() {
-        return telefonNo;
-    }
-
-    public void setTelefonNo(String telefonNo) {
-        this.telefonNo = telefonNo;
-    }
-
-    public String getEvTelefonNo() {
-        return evTelefonNo;
-    }
-
-    public void setEvTelefonNo(String evTelefonNo) {
-        this.evTelefonNo = evTelefonNo;
-    }
-
-    public Kimlik getKimlik() {
-        return kimlik;
-    }
-
-    public void setKimlik(Kimlik kimlik) {
-        this.kimlik = kimlik;
-    }
 }

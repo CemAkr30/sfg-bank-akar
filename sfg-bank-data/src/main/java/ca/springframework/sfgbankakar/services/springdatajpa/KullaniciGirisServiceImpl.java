@@ -10,6 +10,8 @@ import ca.springframework.sfgbankakar.services.KullaniciGirisService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 @Profile("springdatajpa")
@@ -26,23 +28,28 @@ public class KullaniciGirisServiceImpl implements KullaniciGirisService {
     @Override
     public AuthLoginDto loginControl(KullaniciGiris kullaniciGiris) {
         AuthLoginDto authLoginDto = new AuthLoginDto();
-        KullaniciGiris login = kullaniciGirisRepository.findByKullaniciKoduAndSifre(kullaniciGiris.getKullaniciKodu(), kullaniciGiris.getSifre());
-        Kimlik kimlik = kimlikService.findByKimlikNo(login.getKullaniciKodu());
-        authLoginDto.setLoginOnay(false);
-
-        for (Adres adres : kimlik.getAdresSet()) {
-            authLoginDto.setEmail(adres.getEmail());
-            break;
-        }
-
-        if (login != null) {
-            authLoginDto.setLoginOnay(true);
-        }
-        return authLoginDto;
+//        KullaniciGiris login = kullaniciGirisRepository.findByKullaniciKoduAndSifre(kullaniciGiris.getKullaniciKodu(), kullaniciGiris.getSifre());
+//        Kimlik kimlik = kimlikService.findByKimlikNo(login.getKullaniciKodu());
+//        authLoginDto.setLoginOnay(false);
+//
+//        for (Adres adres : kimlik.getAdresSet()) {
+//            authLoginDto.setEmail(adres.getEmail());
+//            break;
+//        }
+//
+//        if (login != null) {
+//            authLoginDto.setLoginOnay(true);
+//        }
+       return authLoginDto;
     }
 
     @Override
     public KullaniciGiris loginOnay(String kimlikNo) {
         return null;
+    }
+
+    @Override
+    public Optional<KullaniciGiris> findByUsername(String username) {
+        return kullaniciGirisRepository.findByUsername(username);
     }
 }

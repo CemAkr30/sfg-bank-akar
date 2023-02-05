@@ -8,12 +8,13 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity
 @Table(name = "KIMLIK" ,schema = "BANK")
 public class Kimlik extends BaseEntity {
 
     @Builder
-    public Kimlik(String adiSoyadi, Cinsiyet cinsiyet, String kimlikNo, Set<Adres> adresSet, Set<Iletisim> iletisimSet, Set<KullaniciGiris> kullaniciGirisSet) {
+    public Kimlik(String adiSoyadi, Cinsiyet cinsiyet, String kimlikNo, Set<Adres> adresSet, Set<Iletisim> iletisimSet,KullaniciGiris kullaniciGiris) {
         this.adiSoyadi = adiSoyadi;
         this.cinsiyet = cinsiyet;
         this.kimlikNo = kimlikNo;
@@ -23,8 +24,8 @@ public class Kimlik extends BaseEntity {
         if(iletisimSet!=null) {
             this.iletisimSet = iletisimSet;
         }
-        if(kullaniciGirisSet!=null) {
-            this.kullaniciGirisSet = kullaniciGirisSet;
+        if(kullaniciGiris!=null){
+            this.kullaniciGiris = kullaniciGiris;
         }
     }
 
@@ -34,7 +35,7 @@ public class Kimlik extends BaseEntity {
     @Column(name = "ADI_SOYADI",nullable = true)
     private String adiSoyadi;
 
-    //@Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "CINSIYET")
     private Cinsiyet cinsiyet;
 
@@ -47,8 +48,8 @@ public class Kimlik extends BaseEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
     private Set<Iletisim> iletisimSet = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
-    private Set<KullaniciGiris> kullaniciGirisSet = new HashSet<>();
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
+    private KullaniciGiris kullaniciGiris;
 
 
     public void addIletisimSet(Iletisim iletisim){
@@ -59,13 +60,13 @@ public class Kimlik extends BaseEntity {
         this.adresSet.add(adres);
     }
 
-    public void addKullaniciGirisSet(KullaniciGiris kullaniciGiris){
-        this.kullaniciGirisSet.add(kullaniciGiris);
+
+    public KullaniciGiris getKullaniciGiris() {
+        return kullaniciGiris;
     }
 
-
-    public Set<KullaniciGiris> getKullaniciGirisSet() {
-        return kullaniciGirisSet;
+    public void setKullaniciGiris(KullaniciGiris kullaniciGiris) {
+        this.kullaniciGiris = kullaniciGiris;
     }
 
     public String getAdiSoyadi() {
@@ -106,9 +107,5 @@ public class Kimlik extends BaseEntity {
 
     public void setIletisimSet(Set<Iletisim> iletisimSet) {
         this.iletisimSet = iletisimSet;
-    }
-
-    public void setKullaniciGirisSet(Set<KullaniciGiris> kullaniciGirisSet) {
-        this.kullaniciGirisSet = kullaniciGirisSet;
     }
 }

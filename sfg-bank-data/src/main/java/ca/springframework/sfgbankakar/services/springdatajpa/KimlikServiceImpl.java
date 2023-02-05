@@ -32,13 +32,13 @@ public class KimlikServiceImpl implements KimlikService {
     @Override
     public KullaniciEkleDto kullaniciEkle(Kimlik kimlik) {
         KullaniciEkleDto dto = new KullaniciEkleDto();
-        kimlik.getAdresSet().forEach(adres -> adres.setKimlik(kimlik));
-        kimlik.getIletisimSet().forEach(iletisim -> iletisim.setKimlik(kimlik));
-        kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKimlik(kimlik));
-        kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKullaniciKodu(kimlik.getKimlikNo()));
-        kimlikRepository.save(kimlik);
-        dto.setEkleControl(true);
-        dto.setAdSoyadi(kimlik.getAdiSoyadi());
+//        kimlik.getAdresSet().forEach(adres -> adres.setKimlik(kimlik));
+//        kimlik.getIletisimSet().forEach(iletisim -> iletisim.setKimlik(kimlik));
+//        kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKimlik(kimlik));
+//        kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKullaniciKodu(kimlik.getKimlikNo()));
+//        kimlikRepository.save(kimlik);
+//        dto.setEkleControl(true);
+//        dto.setAdSoyadi(kimlik.getAdiSoyadi());
         return dto;
     }
 
