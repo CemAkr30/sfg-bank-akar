@@ -24,9 +24,6 @@ public class KimlikCommandToKimlik implements Converter<KimlikCommand, Kimlik> {
     private final KullaniciGirisCommandToKullaniciGiris kullaniciGirisCommand;
 
     @Autowired
-    private  KimlikRepository kimlikRepository;
-
-    @Autowired
     private JwtService jwtService;
 
 
