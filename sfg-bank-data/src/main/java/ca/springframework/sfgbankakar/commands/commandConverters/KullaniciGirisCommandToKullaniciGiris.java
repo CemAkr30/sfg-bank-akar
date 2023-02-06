@@ -8,6 +8,8 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import static ca.springframework.sfgbankakar.defaults.BaseDefault.checkNull;
+
 @Component
 public class KullaniciGirisCommandToKullaniciGiris implements Converter<KullaniciGirisCommand, KullaniciGiris> {
 
@@ -17,7 +19,7 @@ public class KullaniciGirisCommandToKullaniciGiris implements Converter<Kullanic
 
     @Override
     public KullaniciGiris convert(KullaniciGirisCommand source) {
-        if(BaseDefault.checkNull(source)){
+        if(checkNull(source)){
             return null;
         }
         KullaniciGiris kullaniciGiris = new KullaniciGiris();

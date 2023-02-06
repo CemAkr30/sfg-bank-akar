@@ -1,17 +1,18 @@
 package ca.springframework.sfgbankakar.commands.commandConverters;
 
 import ca.springframework.sfgbankakar.commands.AdresCommand;
-import ca.springframework.sfgbankakar.defaults.BaseDefault;
 import ca.springframework.sfgbankakar.model.Adres;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import static ca.springframework.sfgbankakar.defaults.BaseDefault.checkNull;
 
 @Component
 public class AdresCommandToAdres implements Converter<AdresCommand, Adres>  {
 
     @Override
     public Adres convert(AdresCommand source) {
-        if(BaseDefault.checkNull(source)){
+        if(checkNull(source)){
             return null;
         }
         Adres adres = new Adres();

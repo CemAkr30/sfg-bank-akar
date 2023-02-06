@@ -3,16 +3,17 @@ package ca.springframework.sfgbankakar.commands.commandConverters;
 import ca.springframework.sfgbankakar.commands.AdresCommand;
 import ca.springframework.sfgbankakar.commands.IletisimCommand;
 import ca.springframework.sfgbankakar.commands.KimlikCommand;
-import ca.springframework.sfgbankakar.defaults.BaseDefault;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.model.KullaniciGiris;
-import ca.springframework.sfgbankakar.repositories.KimlikRepository;
 import ca.springframework.sfgbankakar.services.jwtService.JwtService;
 import com.sun.istack.Nullable;
 import lombok.Synchronized;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
+
+import static ca.springframework.sfgbankakar.defaults.BaseDefault.checkNull;
+import static ca.springframework.sfgbankakar.defaults.BaseDefault.isNotEmptySet;
 
 @Component
 public class KimlikCommandToKimlik implements Converter<KimlikCommand, Kimlik> {
@@ -37,7 +38,7 @@ public class KimlikCommandToKimlik implements Converter<KimlikCommand, Kimlik> {
     @Nullable
     @Override
     public Kimlik convert(KimlikCommand source) {
-        if(BaseDefault.checkNull(source)){
+        if(checkNull(source)){
             return null;
         }
 
@@ -50,14 +51,14 @@ public class KimlikCommandToKimlik implements Converter<KimlikCommand, Kimlik> {
         source.getKullaniciGirisCommand().setKimlik(kimlik);
         kimlik.setKullaniciGiris(kullaniciGirisCommand.convert(source.getKullaniciGirisCommand()));
 
-        if(BaseDefault.isNotEmptySet(source.getAdresCommandSet())){
+        if(isNotEmptySet(source.getAdresCommandSet())){
             for(AdresCommand adresCommandRec : source.getAdresCommandSet()) {
                 adresCommandRec.setKimlik(kimlik);
                 kimlik.addAdresSet(adresCommandToAdres.convert(adresCommandRec));
             }
         }
 
-        if(BaseDefault.isNotEmptySet(source.getIletisimCommandSet())){
+        if(isNotEmptySet(source.getIletisimCommandSet())){
             for(IletisimCommand iletisimCommandRec : source.getIletisimCommandSet()) {
                 iletisimCommandRec.setKimlik(kimlik);
                 kimlik.addIletisimSet(iletisimCommandToIletisim.convert(iletisimCommandRec));
