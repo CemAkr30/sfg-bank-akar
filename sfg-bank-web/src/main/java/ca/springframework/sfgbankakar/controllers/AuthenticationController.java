@@ -31,6 +31,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationServiceervice;
 
 
+    //Bu metod ve antasyon sayesinde kendi yaptığımız hata validasyonlarını kullanmamızı sağlamaktadır.
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder){
         webDataBinder.addValidators(new AuthenticationValidator());
