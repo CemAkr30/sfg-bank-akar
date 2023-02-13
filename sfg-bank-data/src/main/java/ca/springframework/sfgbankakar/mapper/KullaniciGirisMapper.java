@@ -11,4 +11,6 @@ public interface KullaniciGirisMapper {
     KullaniciGirisMapper INSTANCE = Mappers.getMapper(KullaniciGirisMapper.class);
 
     KullaniciGirisDTO kullaniciGirisToKullaniciGirisDTO(KullaniciGiris kullaniciGiris);
+
+    KullaniciGiris kullaniciGirisDTOtoKullaniciGiris (KullaniciGirisDTO kullaniciGirisDTO);
 }

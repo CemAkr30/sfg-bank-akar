@@ -1,12 +1,9 @@
 package ca.springframework.sfgbankakar.services;
 
-import ca.springframework.sfgbankakar.dto.KullaniciEkleDto;
 import ca.springframework.sfgbankakar.model.Kimlik;
 
 public interface KimlikService extends Crudservice<Kimlik,Long> {
 
-
-    KullaniciEkleDto kullaniciEkle(Kimlik kimlik);
     Kimlik findByAdiSoyadi(String adiSoyadi);
     Kimlik findByKimlikNo(String kimlikNo);
 

@@ -1,7 +1,5 @@
 package ca.springframework.sfgbankakar.services.springdatajpa;
 
-
-import ca.springframework.sfgbankakar.dto.KullaniciEkleDto;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
 import ca.springframework.sfgbankakar.services.KimlikService;
@@ -26,20 +24,6 @@ public class KimlikServiceImpl implements KimlikService {
 
     public KimlikServiceImpl(KimlikRepository kimlikRepository) {
         this.kimlikRepository = kimlikRepository;
-    }
-
-
-    @Override
-    public KullaniciEkleDto kullaniciEkle(Kimlik kimlik) {
-        KullaniciEkleDto dto = new KullaniciEkleDto();
-//        kimlik.getAdresSet().forEach(adres -> adres.setKimlik(kimlik));
-//        kimlik.getIletisimSet().forEach(iletisim -> iletisim.setKimlik(kimlik));
-//        kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKimlik(kimlik));
-//        kimlik.getKullaniciGirisSet().forEach(kullaniciGiris -> kullaniciGiris.setKullaniciKodu(kimlik.getKimlikNo()));
-//        kimlikRepository.save(kimlik);
-//        dto.setEkleControl(true);
-//        dto.setAdSoyadi(kimlik.getAdiSoyadi());
-        return dto;
     }
 
     @Override
