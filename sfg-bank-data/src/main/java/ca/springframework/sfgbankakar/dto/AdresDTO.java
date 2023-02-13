@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AdresDTO {
 
-    private Long id;
     private String beyanAdres;
     private String email;
     private Kimlik kimlik;
