@@ -2,8 +2,8 @@ package ca.springframework.sfgbankakar.services.jwtService;
 
 import ca.springframework.sfgbankakar.commands.KimlikCommand;
 import ca.springframework.sfgbankakar.commands.commandConverters.KimlikCommandToKimlik;
-import ca.springframework.sfgbankakar.dto.AuthenticatioRequest;
-import ca.springframework.sfgbankakar.dto.AuthenticationResponse;
+import ca.springframework.sfgbankakar.dto.AuthenticationRequestDTO;
+import ca.springframework.sfgbankakar.dto.AuthenticationResponseDTO;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,24 +33,24 @@ public class AuthenticationService {
     @Autowired
     private KimlikCommandToKimlik kimlikCommandToKimlik;
 
-    public AuthenticationResponse register(KimlikCommand request) {
+    public AuthenticationResponseDTO register(KimlikCommand request) {
 
         Kimlik kimlik = kimlikCommandToKimlik.convert(request);
         String jwtToken = kimlikCommandToKimlik.getJwtToken();
 
         kimlikRepository.save(kimlik);
 
-        return AuthenticationResponse.builder()
+        return AuthenticationResponseDTO.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthenticationResponse authenticate(AuthenticatioRequest request) {
+    public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
         KullaniciGiris user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow();
         String jwtToken = jwtService.generateToken(user);
-         return AuthenticationResponse.builder()
+         return AuthenticationResponseDTO.builder()
                 .token(jwtToken)
                 .build();
     }

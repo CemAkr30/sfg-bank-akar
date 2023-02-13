@@ -1,5 +1,6 @@
 package ca.springframework.sfgbankakar.services.map;
 
+import ca.springframework.sfgbankakar.dto.AdresDTO;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.Crudservice;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 //implements Crudservice<Adres,Long> çıkartıyoruz üst sınıf veriyoruz
@@ -51,4 +53,28 @@ public class AdresMapService extends AbstractMapService<Adres,Long> implements A
         return super.findById(id);
     }
 
+    @Override
+    public List<AdresDTO> getAllAdres() {
+        return null;
+    }
+
+    @Override
+    public AdresDTO getAdresById(Long id) {
+        return null;
+    }
+
+    @Override
+    public AdresDTO createNewAdres(AdresDTO customerDTO) {
+        return null;
+    }
+
+    @Override
+    public AdresDTO patchAdres(Long id, AdresDTO customerDTO) {
+        return null;
+    }
+
+    @Override
+    public void deleteAdresById(Long id) {
+
+    }
 }

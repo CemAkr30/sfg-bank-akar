@@ -1,17 +1,18 @@
 package ca.springframework.sfgbankakar.dto;
 
 
+import ca.springframework.sfgbankakar.model.Kimlik;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AuthenticatioRequest {
+public class AdresDTO {
 
-    private String username;
-    private String password;
+    private Long id;
+    private String beyanAdres;
+    private String email;
+    private Kimlik kimlik;
 }

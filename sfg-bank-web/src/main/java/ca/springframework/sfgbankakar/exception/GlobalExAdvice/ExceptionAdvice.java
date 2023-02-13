@@ -18,4 +18,13 @@ public class ExceptionAdvice {
                     e.getMessage(), new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
     }
 
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<Object> genelHata(Exception e){
+        return new ResponseEntity<Object>(
+                e.getMessage(), new HttpHeaders(),HttpStatus.BAD_REQUEST);
+    }
+
+
 }
