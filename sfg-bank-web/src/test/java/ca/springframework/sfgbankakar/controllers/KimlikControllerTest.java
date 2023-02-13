@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -32,6 +33,10 @@ class KimlikControllerTest {
     Set<Kimlik> kimlikSet;
 
     MockMvc mockMvc;
+
+    /*WebTestClient -> manager sayesinde servislerimizi class gibi gösterip istek atabiliriz tipli
+    * RestTemplateBuilder -> manager gibi ve test servisimizden istek attığımızda serverWebExchange manager
+    * sayesinde gelen formDatayı alabiliriz*/
 
     @BeforeEach
     public void setUp() throws Exception{

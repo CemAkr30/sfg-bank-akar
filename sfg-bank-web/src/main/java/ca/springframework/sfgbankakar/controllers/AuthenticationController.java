@@ -6,7 +6,6 @@ import ca.springframework.sfgbankakar.dto.AuthenticatioRequest;
 import ca.springframework.sfgbankakar.exception.AuthenticationException;
 import ca.springframework.sfgbankakar.services.jwtService.AuthenticationService;
 import ca.springframework.sfgbankakar.dto.AuthenticationResponse;
-import ca.springframework.sfgbankakar.dto.RegisterRequest;
 import ca.springframework.sfgbankakar.validators.AuthenticationValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -59,25 +56,4 @@ public class AuthenticationController {
 
     //    @Autowired
 //    private EmailService emailService;
-
-
-//    @RequestMapping("/auth")
-//    @PostMapping
-//    public AuthLoginDto authLogin(@RequestBody KullaniciGiris kullaniciGiris){
-//        return  kullaniciGirisService.loginControl(kullaniciGiris);
-//    }
-//
-//    @PostMapping("/loginOnay/{kimlikNo}")
-//    public String sendMail(@PathVariable("kimlikNo") String kimlikNo){
-//       Set<Kimlik> kimlikSet = kimlikService.findAll();
-//       Set<Adres> adresSet=null;
-//        for ( Kimlik kimlik : kimlikSet) {
-//            adresSet = kimlik.getAdresSet();
-//            for(Adres adres : adresSet) {
-//                emailService.send(adres.getEmail(), "springtestmailtest@gmail.com",
-//                        "AkarBank tarafından doğrulama Kodu gönderilecektir.");
-//            }
-//        }
-//        return "Başarılı Mail";
-//    }
 }

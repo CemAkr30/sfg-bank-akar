@@ -25,4 +25,10 @@ public class KimlikCommand extends CommandBase {
     private Set<IletisimCommand> iletisimCommandSet = new HashSet<>();
     private KullaniciGirisCommand kullaniciGirisCommand;
 
+    /**
+      DTO ve Command class'lar aslında birbirlerine benzer ama ufak bir farkları var
+     Command class da manuel converter yaparken, DTO class'lar da kullanılan @MapStruct annatoion
+     sayesinde otomatik neseneleri dto mapler. 
+    **/
+
 }
