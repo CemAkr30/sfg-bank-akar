@@ -1,15 +1,15 @@
 package ca.springframework.sfgbankakar.services.map;
 
 import ca.springframework.sfgbankakar.dto.AdresDTO;
+import ca.springframework.sfgbankakar.mapper.AdresMapper;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.services.AdresService;
-import ca.springframework.sfgbankakar.services.Crudservice;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 //implements Crudservice<Adres,Long> çıkartıyoruz üst sınıf veriyoruz
 @Service
@@ -17,6 +17,12 @@ import java.util.Set;
 public class AdresMapService extends AbstractMapService<Adres,Long> implements AdresService {
 
     //Jpa taklit ettik, crudService methodları override ettirdi abstractmapservice de dbmiz gibi
+
+    private final AdresMapper adresMapper;
+
+    public AdresMapService(AdresMapper adresMapper) {
+        this.adresMapper = adresMapper;
+    }
 
     @Override
     public Set<Adres> findAll() {
@@ -55,26 +61,49 @@ public class AdresMapService extends AbstractMapService<Adres,Long> implements A
 
     @Override
     public List<AdresDTO> getAllAdres() {
-        return null;
+        return super.findAll()
+                .stream()
+                .map(adres ->{
+                    AdresDTO adresDTO = adresMapper.adresToAdresDTO(adres);
+                    return adresDTO;
+                })
+                .collect(Collectors.toList());
     }
 
     @Override
     public AdresDTO getAdresById(Long id) {
-        return null;
+        AdresDTO adresDTO = adresMapper.adresToAdresDTO(super.findById(id));
+        return adresDTO;
     }
 
     @Override
-    public AdresDTO createNewAdres(AdresDTO customerDTO) {
-        return null;
+    public AdresDTO createNewAdres(AdresDTO adresDTO) {
+        Adres adres = adresMapper.adresDTOtoAdres(adresDTO);
+        AdresDTO adresDTOj = adresMapper.adresToAdresDTO(super.createNew(adres));
+        return adresDTOj;
     }
 
     @Override
-    public AdresDTO patchAdres(Long id, AdresDTO customerDTO) {
-        return null;
+    public AdresDTO patchAdres(Long id, AdresDTO adresDTO) {
+        return super.findAll()
+                .stream()
+                .map(adres -> {
+                    if(id.equals(adres.getId())){
+                        if(adresDTO.getBeyanAdres()!=null){
+                            adres.setBeyanAdres(adresDTO.getBeyanAdres());
+                        }
+                        if(adresDTO.getEmail()!=null){
+                            adres.setEmail(adresDTO.getEmail());
+                        }
+                        AdresDTO adresDTOj = adresMapper.adresToAdresDTO(adres);
+                        return adresDTOj;
+                    }
+                    return null;
+                }).collect(Collectors.toList()).get(0);
     }
 
     @Override
     public void deleteAdresById(Long id) {
-
+        super.deleteById(id);
     }
 }

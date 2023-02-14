@@ -1,10 +1,11 @@
 package ca.springframework.sfgbankakar.services.map;
 
+import ca.springframework.sfgbankakar.mapper.AdresMapper;
+import ca.springframework.sfgbankakar.mapper.AdresMapperImpl;
 import ca.springframework.sfgbankakar.model.Kimlik;
-import ca.springframework.sfgbankakar.services.AdresService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 
 import java.util.Set;
 
@@ -14,9 +15,12 @@ class KimlikMapServiceTest {
 
     KimlikMapService kimlikMapService;
 
+    AdresMapper adresMapper;
+
     @BeforeEach
     void setUp() {
-        kimlikMapService = new KimlikMapService(new AdresMapService());
+        adresMapper = new AdresMapperImpl();
+        kimlikMapService = new KimlikMapService(new AdresMapService(adresMapper));
         kimlikMapService.save(Kimlik.builder().adiSoyadi("CA").build());
     }
 
