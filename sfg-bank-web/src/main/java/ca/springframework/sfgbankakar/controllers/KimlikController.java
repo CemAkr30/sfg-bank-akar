@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/giris")
+@RequestMapping(KimlikController.BASE_URL)
 @CrossOrigin("*") // Not: farklı localhost request atmak için
 public class KimlikController {
+
+
+    public static final String BASE_URL = "/api/giris";
 
     private final KimlikService kimlikService;
 

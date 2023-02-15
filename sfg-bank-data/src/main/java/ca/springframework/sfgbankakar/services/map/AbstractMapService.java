@@ -28,7 +28,7 @@ public abstract class AbstractMapService<T extends BaseEntity,ID extends Long> {
         return object;
     }
 
-    T createNew(T object){
+   T  createNew(T object){
         if(object != null){
             if(object.getId()!=null){
                 object.setId(getNextId());

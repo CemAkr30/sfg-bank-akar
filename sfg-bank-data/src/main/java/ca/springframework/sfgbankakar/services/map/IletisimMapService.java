@@ -1,5 +1,6 @@
 package ca.springframework.sfgbankakar.services.map;
 
+import ca.springframework.sfgbankakar.dto.IletisimDTO;
 import ca.springframework.sfgbankakar.model.Iletisim;
 import ca.springframework.sfgbankakar.services.Crudservice;
 import ca.springframework.sfgbankakar.services.IletisimService;
@@ -7,6 +8,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 //implements Crudservice<Iletisim,Long>
@@ -50,4 +52,28 @@ public class IletisimMapService  extends AbstractMapService<Iletisim,Long> imple
         return super.findById(id);
     }
 
+    @Override
+    public List<IletisimDTO> getAllIletisim() {
+        return null;
+    }
+
+    @Override
+    public IletisimDTO getIletisimById(Long id) {
+        return null;
+    }
+
+    @Override
+    public IletisimDTO createNewIletisim(IletisimDTO customerDTO) {
+        return null;
+    }
+
+    @Override
+    public IletisimDTO patchIletisim(Long id, IletisimDTO customerDTO) {
+        return null;
+    }
+
+    @Override
+    public void deleteIletisimById(Long id) {
+
+    }
 }

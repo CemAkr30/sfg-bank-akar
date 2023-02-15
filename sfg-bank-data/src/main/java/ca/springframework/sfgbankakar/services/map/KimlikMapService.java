@@ -1,5 +1,6 @@
 package ca.springframework.sfgbankakar.services.map;
 
+import ca.springframework.sfgbankakar.dto.KimlikDTO;
 import ca.springframework.sfgbankakar.model.Adres;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.services.AdresService;
@@ -7,6 +8,7 @@ import ca.springframework.sfgbankakar.services.KimlikService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 
@@ -80,6 +82,31 @@ public class KimlikMapService extends AbstractMapService<Kimlik,Long> implements
     @Override
     public Kimlik findByKimlikNo(String kimlikNo) {
         return null;
+    }
+
+    @Override
+    public List<KimlikDTO> getAllKimlik() {
+        return null;
+    }
+
+    @Override
+    public KimlikDTO getKimlikById(Long id) {
+        return null;
+    }
+
+    @Override
+    public KimlikDTO createNewKimlik(KimlikDTO customerDTO) {
+        return null;
+    }
+
+    @Override
+    public KimlikDTO patchKimlik(Long id, KimlikDTO customerDTO) {
+        return null;
+    }
+
+    @Override
+    public void deleteKimlikById(Long id) {
+
     }
 
 }

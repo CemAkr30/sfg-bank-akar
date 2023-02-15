@@ -53,7 +53,7 @@ class KimlikControllerTest {
     @Test
     public void testMockMVC() throws Exception{
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(kimlikController).build();// kimlikController build ederek taklit objesi oluşturur http katmanında
-        mockMvc.perform(MockMvcRequestBuilders.get("/giris/kimlik"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/giris/kimlik"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
