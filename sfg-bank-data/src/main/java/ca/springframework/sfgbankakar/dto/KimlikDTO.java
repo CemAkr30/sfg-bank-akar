@@ -15,7 +15,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KimlikDTO {
+public class KimlikDTO extends BaseDTO {
 
     private String adiSoyadi;
     private Cinsiyet cinsiyet;

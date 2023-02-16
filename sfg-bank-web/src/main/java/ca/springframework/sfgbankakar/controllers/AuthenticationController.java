@@ -1,9 +1,9 @@
 package ca.springframework.sfgbankakar.controllers;
 
 
-import ca.springframework.sfgbankakar.commands.KimlikCommand;
 import ca.springframework.sfgbankakar.dto.AuthenticationRequestDTO;
 import ca.springframework.sfgbankakar.dto.AuthenticationResponseDTO;
+import ca.springframework.sfgbankakar.dto.KimlikDTO;
 import ca.springframework.sfgbankakar.exception.AuthenticationException;
 import ca.springframework.sfgbankakar.services.jwtService.AuthenticationService;
 import ca.springframework.sfgbankakar.validators.AuthenticationValidator;
@@ -37,7 +37,7 @@ public class AuthenticationController {
 
     //ResponseEntity<AuthenticationResponse>
     @PostMapping("/register")
-    public AuthenticationResponseDTO register(@Valid @RequestBody KimlikCommand registerRequest,
+    public AuthenticationResponseDTO register(@Valid @RequestBody KimlikDTO registerRequest,
                                                            BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
           // System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class IletisimDTO {
+public class IletisimDTO extends BaseDTO {
 
 
     private String telefonNo;

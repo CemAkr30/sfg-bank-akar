@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class KullaniciGirisDTO {
+public class KullaniciGirisDTO  extends BaseDTO {
 
     private Long id;
     private String password;

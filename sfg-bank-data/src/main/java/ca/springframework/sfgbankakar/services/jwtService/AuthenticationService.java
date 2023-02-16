@@ -2,8 +2,10 @@ package ca.springframework.sfgbankakar.services.jwtService;
 
 import ca.springframework.sfgbankakar.commands.KimlikCommand;
 import ca.springframework.sfgbankakar.commands.commandConverters.KimlikCommandToKimlik;
+import ca.springframework.sfgbankakar.defaults.genUtils.GenUtilMap;
 import ca.springframework.sfgbankakar.dto.AuthenticationRequestDTO;
 import ca.springframework.sfgbankakar.dto.AuthenticationResponseDTO;
+import ca.springframework.sfgbankakar.dto.KimlikDTO;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.model.KullaniciGiris;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
@@ -33,11 +35,17 @@ public class AuthenticationService {
     @Autowired
     private KimlikCommandToKimlik kimlikCommandToKimlik;
 
-    public AuthenticationResponseDTO register(KimlikCommand request) {
+    public AuthenticationResponseDTO register(KimlikDTO request) {
 
-        Kimlik kimlik = kimlikCommandToKimlik.convert(request);
+     Kimlik kimlik  = new GenUtilMap<KimlikDTO,Kimlik>().dtoToPojo(request,new Kimlik());
+
+                    kimlik.getKullaniciGiris().setKimlik(kimlik);
+                    kimlik.getAdresSet()
+                            .forEach(adres -> adres.setKimlik(kimlik));
+                    kimlik.getIletisimSet()
+                            .forEach(iletisim -> iletisim.setKimlik(kimlik));
+
         String jwtToken = kimlikCommandToKimlik.getJwtToken();
-
         kimlikRepository.save(kimlik);
 
         return AuthenticationResponseDTO.builder()

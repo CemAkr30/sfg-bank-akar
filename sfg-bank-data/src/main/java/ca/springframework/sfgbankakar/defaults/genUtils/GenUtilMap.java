@@ -1,30 +1,32 @@
 package ca.springframework.sfgbankakar.defaults.genUtils;
 
+import ca.springframework.sfgbankakar.defaults.BaseDefault;
 import ca.springframework.sfgbankakar.dto.BaseDTO;
 import ca.springframework.sfgbankakar.model.BaseEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Component
-public class GenUtilMap<E extends BaseDTO,T extends BaseEntity> {
+public  class GenUtilMap<E extends BaseDTO,T extends BaseEntity> {
 
     private static final ModelMapper getModelMapper(){
         return  new ModelMapper();
     }
-    final E pojoToDto(E targetClass,T source){
+     public final  E pojoToDto(E targetClass, T source){
         return (E) getModelMapper()
                 .map(source,targetClass.getClass());
     }
-    final T dtoToPojo(E targetClass,T source){
+    public final T dtoToPojo(E targetClass,T source){
         return (T) getModelMapper()
                 .map(targetClass,source.getClass());
     }
-    final List<E> pojoToListDto(E targetClass, List<T> source){
+    public final List<E> pojoToListDto(E targetClass, List<T> source){
         List<E>  eList = new ArrayList<>();
         for(T t : source){
             E obj  = (E) getModelMapper().map(t,targetClass.getClass());
@@ -32,7 +34,7 @@ public class GenUtilMap<E extends BaseDTO,T extends BaseEntity> {
         }
         return eList;
     }
-    final List<T> dtoToListPojo(List<E> targetClass, T source){
+    public final List<T> dtoToListPojo(List<E> targetClass, T source){
         List<T>  eList = new ArrayList<>();
         for(E cls : targetClass){
             T obj  = (T) getModelMapper().map(cls,source.getClass());
@@ -40,7 +42,7 @@ public class GenUtilMap<E extends BaseDTO,T extends BaseEntity> {
         }
         return eList;
     }
-    final Set<E> pojoToSetDto(E targetClass, Set<T> source){
+    public  final Set<E> pojoToSetDto(E targetClass, Set<T> source){
         Set<E>  eSet  = new HashSet<>();
         for(T t : source){
             E obj  = (E) getModelMapper().map(t,targetClass.getClass());
@@ -48,7 +50,7 @@ public class GenUtilMap<E extends BaseDTO,T extends BaseEntity> {
         }
         return eSet;
     }
-    final Set<T> dtoToSetPojoSet(Set<E> targetClass, T source){
+    public  final Set<T> dtoToSetPojoSet(Set<E> targetClass, T source){
        Set<T>  eSet = new HashSet<>();
         for(E cls : targetClass){
             T obj  = (T) getModelMapper().map(cls,source.getClass());
