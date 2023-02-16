@@ -25,8 +25,7 @@ import static org.mockito.Mockito.when;
 class AdresMapServiceTest {
 
 
-    @InjectMocks
-    AdresMapper adresMapper;
+    AdresMapper adresMapper = AdresMapper.INSTANCE;
 
     @Mock
     AdresMapService adresMapService;
@@ -35,7 +34,6 @@ class AdresMapServiceTest {
     AbstractMapService abstractMapService;
     @BeforeEach
     void setUp() {
-        adresMapper = new AdresMapperImpl();
         adresMapService = new AdresMapService(adresMapper);
     }
     @Test

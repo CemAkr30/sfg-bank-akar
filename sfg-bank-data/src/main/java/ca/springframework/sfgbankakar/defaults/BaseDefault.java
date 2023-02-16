@@ -1,10 +1,11 @@
 package ca.springframework.sfgbankakar.defaults;
 
+import org.modelmapper.ModelMapper;
+
 import java.util.List;
 import java.util.Set;
 
 public class BaseDefault {
-
 
      public final static <T> boolean checkNull(T value){
         if(value == null){
