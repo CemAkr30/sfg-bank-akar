@@ -14,7 +14,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "MUSTERI" ,schema = "BANK")
+@Table(name = "TRANSFER_LOG" ,schema = "BANK")
 public class TransferLog extends BaseEntity {
 
 

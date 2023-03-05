@@ -7,17 +7,19 @@ import ca.springframework.sfgbankakar.dto.BakiyeTransferDTO;
 import ca.springframework.sfgbankakar.dto.MusteriDTO;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.model.Musteri;
+import ca.springframework.sfgbankakar.model.TransferLog;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
 import ca.springframework.sfgbankakar.repositories.MusteriRepository;
+import ca.springframework.sfgbankakar.repositories.TransferLogRepository;
 import ca.springframework.sfgbankakar.services.MusteriService;
-import org.springframework.amqp.core.AmqpTemplate;
+import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.annotation.RabbitListeners;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -31,9 +33,12 @@ public class MusteriServiceImpl implements MusteriService {
 
     private final KimlikRepository kimlikRepository;
 
-    public MusteriServiceImpl(MusteriRepository musteriRepository, KimlikRepository kimlikRepository, DirectExchange exchange, RabbitTemplate rabbitTemplate) {
+    private final TransferLogRepository  transferLogRepository;
+
+    public MusteriServiceImpl(MusteriRepository musteriRepository, KimlikRepository kimlikRepository, TransferLogRepository transferLogRepository, DirectExchange exchange, RabbitTemplate rabbitTemplate) {
         this.musteriRepository = musteriRepository;
         this.kimlikRepository = kimlikRepository;
+        this.transferLogRepository = transferLogRepository;
         this.exchange = exchange;
         this.rabbitTemplate = rabbitTemplate;
     }
@@ -151,9 +156,10 @@ public class MusteriServiceImpl implements MusteriService {
         // işleme devam edecek
     }
 
-   @RabbitListener(queues = "firstStepQueue")
+    @Transactional
+    @RabbitListener(queues = "firstStepQueue")
     public void transferBakiyeMessage(BakiyeTransferDTO bakiyeTransferDTO){
-        Optional<Musteri> musteriOptional = Optional.ofNullable(musteriRepository.findByIbanNo(bakiyeTransferDTO.getGonderecekIbanNo()));
+        Optional<Musteri> musteriOptional = Optional.ofNullable(musteriRepository.findByIbanNo(bakiyeTransferDTO.getGonderecekIbanNo().toString()));
         musteriOptional.ifPresentOrElse(musteri -> {
             if(musteri.getBakiye()>bakiyeTransferDTO.getGonderilenBakiye()) {
                 musteri.setBakiye(musteri.getBakiye() - bakiyeTransferDTO.getGonderilenBakiye());
@@ -187,7 +193,7 @@ public class MusteriServiceImpl implements MusteriService {
                 musteri.setBakiye(musteri.getBakiye() + bakiyeTransferDTO.getGonderilenBakiye());
                 musteriRepository.save(musteri);
             });
-          //  throw new RuntimeException("Gönderilecek iban bulunamadı.");
+            throw new RuntimeException("Gönderilecek iban bulunamadı.");
         });
     }
 
@@ -196,13 +202,13 @@ public class MusteriServiceImpl implements MusteriService {
     public void transferLog(BakiyeTransferDTO bakiyeTransferDTO){
         Optional<Musteri> gonderenMusteriOptional = Optional.ofNullable(musteriRepository.findByIbanNo(bakiyeTransferDTO.getGonderecekIbanNo()));
         Optional<Musteri> gonderilenMusteriOptional = Optional.ofNullable(musteriRepository.findByIbanNo(bakiyeTransferDTO.getGonderilenIbanNo()));
-//        if(gonderenMusteriOptional.isPresent() && gonderilenMusteriOptional.isPresent()){
-//            TransferLog transferLog = new TransferLog();
-//            transferLog.setGonderenMusteri(gonderenMusteriOptional.get());
-//            transferLog.setGonderilenMusteri(gonderilenMusteriOptional.get());
-//            transferLog.setGonderilenBakiye(bakiyeTransferDTO.getGonderilenBakiye());
-//            transferLogRepository.save(transferLog);
-//        }
+        if(gonderenMusteriOptional.isPresent() && gonderilenMusteriOptional.isPresent()){
+            TransferLog transferLog = new TransferLog();
+            transferLog.setGonderenMusteri(gonderenMusteriOptional.get());
+            transferLog.setGonderilenMusteri(gonderilenMusteriOptional.get());
+            transferLog.setGonderilenBakiye(bakiyeTransferDTO.getGonderilenBakiye());
+            transferLogRepository.save(transferLog);
+        }
         gonderenMusteriOptional.ifPresent(musteri -> {
             gonderenMusteriOptional.ifPresent(musteri1 -> {
                 String gonderenMusteri ="Sayın," + musteri1.getKimlik().getAdiSoyadi() + "\n Güncel Bakiyeniz:" +  musteri1.getBakiye();
@@ -214,6 +220,7 @@ public class MusteriServiceImpl implements MusteriService {
             String gonderilenMusteri ="Sayın," + musteri.getKimlik().getAdiSoyadi() + "\n Güncel Bakiyeniz:" +  musteri.getBakiye();
             System.out.println(gonderilenMusteri);
         });
+//        rabbitTemplate.containerAckMode(AcknowledgeMode.AUTO);
     }
 
     @Override
