@@ -60,6 +60,21 @@ public class Kimlik extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
     private Musteri musteri;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gonderenMusteri",fetch = FetchType.EAGER)
+    private Set<TransferLog> gonderenMusteriSet = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gonderilenMusteri",fetch = FetchType.EAGER)
+    private Set<TransferLog> gonderilenMusteriSet = new HashSet<>();
+
+
+
+    public void addGonderenMusteriSet(TransferLog transferLog){
+        this.gonderenMusteriSet.add(transferLog);
+    }
+
+    public void addGonderilenMusteriSet(TransferLog transferLog){
+        this.gonderilenMusteriSet.add(transferLog);
+    }
 
     public void addIletisimSet(Iletisim iletisim){
         this.iletisimSet.add(iletisim);
