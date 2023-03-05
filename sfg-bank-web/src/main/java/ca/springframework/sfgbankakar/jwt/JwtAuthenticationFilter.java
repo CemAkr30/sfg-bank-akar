@@ -1,5 +1,7 @@
 package ca.springframework.sfgbankakar.jwt;
 
+import ca.springframework.sfgbankakar.model.KullaniciGiris;
+import ca.springframework.sfgbankakar.repositories.KullaniciGirisRepository;
 import ca.springframework.sfgbankakar.services.jwtService.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 //Bu filter her bir request de aktif olmasını istiyoruz
 @Component
@@ -28,6 +32,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     @Autowired
     private final UserDetailsService userDetailsService;
+
+    @Autowired
+    private final KullaniciGirisRepository kullaniciGirisRepository;
 
     /*@RequiredArgsConstructor: Class içinde final ve NonNull olan değişkenleri parametre olarak alan bir constructor oluşturur.*/
 
@@ -47,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
               username = jwtService.extractUsername(jwt);
               if(username!=null && SecurityContextHolder.getContext().getAuthentication() == null){
                   // SecurityContextHolder.getContext().getAuthentication() == null ise henüz kullanıcı doğrulanmamış
+               //  Optional<KullaniciGiris> kullaniciGiris =  kullaniciGirisRepository.findByUsername(username);
                   UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
                   if(jwtService.isTokenValid(jwt,userDetails)){
                       UsernamePasswordAuthenticationToken authToken =
@@ -55,6 +63,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                       SecurityContextHolder.getContext().setAuthentication(authToken); // kullanıcı doğrulanmış auth context ekleyelim
                   }
               }
+               // response.addCookie(new Cookie("Authorization",jwt));
               filterChain.doFilter(request,response); // her zaman filter geçmesini istiyorsak
     }
 }

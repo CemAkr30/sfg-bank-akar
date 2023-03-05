@@ -1,5 +1,6 @@
 package ca.springframework.sfgbankakar.model;
 
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,27 +9,28 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 
-
+@Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity
-@Table(name = "ADRES" ,schema = "BANK")
-public class Adres  extends BaseEntity {
-
-    @Column(name = "BEYAN_ADRES")
-    private String beyanAdres;
-
-    @Email
-    @Column(name = "EMAIL")
-    private String email;
+@Table(name = "MUSTERI" ,schema = "BANK")
+public class Musteri  extends  BaseEntity {
 
     @JsonIgnore
-    @ManyToOne
+    @OneToOne
     private Kimlik kimlik;
+
+    @Column(name = "BAKIYE")
+    private Double bakiye;
+
+    @Column(name = "IBAN_NO")
+    private String ibanNo;
+
+    @Column(name = "HESAP_NO")
+    private String hesapNo;
+
 }

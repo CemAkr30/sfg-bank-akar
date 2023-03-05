@@ -3,14 +3,11 @@ package ca.springframework.sfgbankakar.bootstrap;
 
 import ca.springframework.sfgbankakar.enums.Cinsiyet;
 import ca.springframework.sfgbankakar.enums.Role;
-import ca.springframework.sfgbankakar.model.Adres;
-import ca.springframework.sfgbankakar.model.Iletisim;
-import ca.springframework.sfgbankakar.model.Kimlik;
-import ca.springframework.sfgbankakar.model.KullaniciGiris;
+import ca.springframework.sfgbankakar.model.*;
 import ca.springframework.sfgbankakar.services.AdresService;
 import ca.springframework.sfgbankakar.services.IletisimService;
 import ca.springframework.sfgbankakar.services.KimlikService;
-import org.springframework.beans.factory.annotation.Autowired;
+import ca.springframework.sfgbankakar.services.MusteriService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -28,12 +25,16 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
     private final KimlikService kimlikService;
     private final IletisimService iletisimService;
     private final AdresService adresService;
+
+    private final MusteriService musteriService;
+
     private final PasswordEncoder passwordEncoder;
 
-    public DataLoader(KimlikService kimlikService, IletisimService iletisimService, AdresService adresService, PasswordEncoder passwordEncoder) {
+    public DataLoader(KimlikService kimlikService, IletisimService iletisimService, AdresService adresService, MusteriService musteriService, PasswordEncoder passwordEncoder) {
         this.kimlikService = kimlikService;
         this.iletisimService = iletisimService;
         this.adresService = adresService;
+        this.musteriService = musteriService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -89,6 +90,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .role(Role.ADMIN)
                 .build();
 
+        Musteri musteriCa = Musteri.builder()
+                .kimlik(kimlikLoader)
+                .bakiye(13500.32)
+                .hesapNo("8492-6214-3214")
+                .ibanNo("TR-8596-1842-5860-1482-52")
+                .build();
+
+        kimlikLoader.setMusteri(musteriCa);
         kimlikLoader.setKullaniciGiris(kullaniciGirisCa);
         kimlikLoader.addAdresSet(adresLoader);
         kimlikLoader.addAdresSet(adresLoaderTwo);
@@ -144,6 +153,14 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
                 .role(Role.USER)
                 .build();
 
+        Musteri musteriBo = Musteri.builder()
+                .kimlik(kimlikBo)
+                .bakiye(10050.82)
+                .hesapNo("5214-4200-3214")
+                .ibanNo("TR-8596-0000-5214-4200-52")
+                .build();
+
+        kimlikBo.setMusteri(musteriBo);
         kimlikBo.setKullaniciGiris(kullaniciGirisBo);
         kimlikService.save(kimlikBo);
 

@@ -1,6 +1,7 @@
 package ca.springframework.sfgbankakar.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Iletisim extends BaseEntity {
     @Column(name = "EV_TELEFON_NO")
     private String evTelefonNo;
 
+    @JsonIgnore
     @ManyToOne
     private Kimlik kimlik;
 }
