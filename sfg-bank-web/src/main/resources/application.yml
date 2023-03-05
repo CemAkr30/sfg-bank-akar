@@ -12,5 +12,5 @@ ca:
   dbUrl: ymlAppUrl
 
 server:
-  port: 9998
+  port: 9999
 
