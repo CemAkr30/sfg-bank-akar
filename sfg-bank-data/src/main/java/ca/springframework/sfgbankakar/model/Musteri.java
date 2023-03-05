@@ -7,10 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -32,5 +31,20 @@ public class Musteri  extends  BaseEntity {
 
     @Column(name = "HESAP_NO")
     private String hesapNo;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gonderenMusteri")
+    private Set<TransferLog> gonderenMusteriLogSet = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "gonderilenMusteri")
+    private Set<TransferLog> gonderilenMusteriLogSet = new HashSet<>();
+
+
+    public void gonderilenMusteriLogSet(TransferLog transferLog){
+        this.gonderilenMusteriLogSet.add(transferLog);
+    }
+
+    public void gonderenMusteriLogSet(TransferLog transferLog){
+        this.gonderenMusteriLogSet.add(transferLog);
+    }
 
 }

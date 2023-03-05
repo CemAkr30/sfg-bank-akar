@@ -153,7 +153,7 @@ public class MusteriServiceImpl implements MusteriService {
 
    @RabbitListener(queues = "firstStepQueue")
     public void transferBakiyeMessage(BakiyeTransferDTO bakiyeTransferDTO){
-        Optional<Musteri> musteriOptional = Optional.ofNullable(musteriRepository.findByIbanNo(bakiyeTransferDTO.getGonderilenIbanNo()));
+        Optional<Musteri> musteriOptional = Optional.ofNullable(musteriRepository.findByIbanNo(bakiyeTransferDTO.getGonderecekIbanNo()));
         musteriOptional.ifPresentOrElse(musteri -> {
             if(musteri.getBakiye()>bakiyeTransferDTO.getGonderilenBakiye()) {
                 musteri.setBakiye(musteri.getBakiye() - bakiyeTransferDTO.getGonderilenBakiye());
@@ -204,7 +204,7 @@ public class MusteriServiceImpl implements MusteriService {
 //            transferLogRepository.save(transferLog);
 //        }
         gonderenMusteriOptional.ifPresent(musteri -> {
-            gonderilenMusteriOptional.ifPresent(musteri1 -> {
+            gonderenMusteriOptional.ifPresent(musteri1 -> {
                 String gonderenMusteri ="Sayın," + musteri1.getKimlik().getAdiSoyadi() + "\n Güncel Bakiyeniz:" +  musteri1.getBakiye();
                  System.out.println(gonderenMusteri);
             });
