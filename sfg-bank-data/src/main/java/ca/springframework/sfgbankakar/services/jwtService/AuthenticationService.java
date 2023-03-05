@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,19 +34,23 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Autowired
-    private KimlikCommandToKimlik kimlikCommandToKimlik;
+    private final KimlikCommandToKimlik kimlikCommandToKimlik;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
 
     public AuthenticationResponseDTO register(KimlikDTO request) {
 
      Kimlik kimlik  = new GenUtilMap<KimlikDTO,Kimlik>().dtoToPojo(request,new Kimlik());
 
                     kimlik.getKullaniciGiris().setKimlik(kimlik);
+                    kimlik.getKullaniciGiris().setPassword(passwordEncoder.encode(kimlik.getKullaniciGiris().getPassword()));
                     kimlik.getAdresSet()
                             .forEach(adres -> adres.setKimlik(kimlik));
                     kimlik.getIletisimSet()
                             .forEach(iletisim -> iletisim.setKimlik(kimlik));
 
-        String jwtToken = kimlikCommandToKimlik.getJwtToken();
+        String jwtToken = jwtService.generateToken(kimlik.getKullaniciGiris());
         kimlikRepository.save(kimlik);
 
         return AuthenticationResponseDTO.builder()

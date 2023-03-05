@@ -5,6 +5,7 @@ spring:
       - dev
       - postgre
       - mail
+      - rabbitMQ
 ca:
   dbUserName: ymlAppUsername
   dbPassword: ymlAppPassword

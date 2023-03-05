@@ -3,6 +3,7 @@ package ca.springframework.sfgbankakar.model;
 import javax.persistence.*;
 
 import ca.springframework.sfgbankakar.enums.Role;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,6 +26,7 @@ public class KullaniciGiris  extends  BaseEntity implements UserDetails {
     @Column(name = "USERNAME")
     private String  username;
 
+    @JsonIgnore
     @OneToOne
     private Kimlik kimlik;
 

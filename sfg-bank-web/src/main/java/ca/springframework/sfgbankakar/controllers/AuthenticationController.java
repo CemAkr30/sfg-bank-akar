@@ -9,6 +9,7 @@ import ca.springframework.sfgbankakar.services.jwtService.AuthenticationService;
 import ca.springframework.sfgbankakar.validators.AuthenticationValidator;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 @RequestMapping(AuthenticationController.BASE_URL)
 @CrossOrigin("*")
 public class AuthenticationController {
+
 
     public static final String BASE_URL = "/api/v1/auth";
 
@@ -32,12 +34,15 @@ public class AuthenticationController {
     //Bu metod ve antasyon sayesinde kendi yaptığımız hata validasyonlarını kullanmamızı sağlamaktadır.
     @InitBinder
     public void initBinder(WebDataBinder webDataBinder){
+        if(webDataBinder.getObjectName().equals("authenticationRequestDTO")){
+            return;
+        }
         webDataBinder.addValidators(new AuthenticationValidator());
     }
 
     //ResponseEntity<AuthenticationResponse>
     @PostMapping("/register")
-    public AuthenticationResponseDTO register(@Valid @RequestBody KimlikDTO registerRequest,
+    public AuthenticationResponseDTO register(@Validated @RequestBody KimlikDTO registerRequest,
                                                            BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
           // System.out.println(bindingResult.getAllErrors().get(0).getDefaultMessage());

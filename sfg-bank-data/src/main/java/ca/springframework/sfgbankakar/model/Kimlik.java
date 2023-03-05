@@ -2,6 +2,7 @@ package ca.springframework.sfgbankakar.model;
 
 
 import ca.springframework.sfgbankakar.enums.Cinsiyet;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import org.hibernate.validator.constraints.Length;
 
@@ -55,6 +56,9 @@ public class Kimlik extends BaseEntity {
     @NotNull
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
     private KullaniciGiris kullaniciGiris;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "kimlik",fetch = FetchType.EAGER)
+    private Musteri musteri;
 
 
     public void addIletisimSet(Iletisim iletisim){
@@ -112,5 +116,13 @@ public class Kimlik extends BaseEntity {
 
     public void setIletisimSet(Set<Iletisim> iletisimSet) {
         this.iletisimSet = iletisimSet;
+    }
+
+    public Musteri getMusteri() {
+        return musteri;
+    }
+
+    public void setMusteri(Musteri musteri) {
+        this.musteri = musteri;
     }
 }
