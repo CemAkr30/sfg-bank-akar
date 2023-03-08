@@ -2,9 +2,12 @@ package ca.springframework.sfgbankakar.services.springdatajpa;
 
 
 import static ca.springframework.sfgbankakar.defaults.BaseDefault.checkNull;
+
+import ca.springframework.sfgbankakar.daoNativeQuery.QueryBuilder;
 import ca.springframework.sfgbankakar.defaults.genUtils.GenUtilMap;
 import ca.springframework.sfgbankakar.dto.BakiyeTransferDTO;
 import ca.springframework.sfgbankakar.dto.MusteriDTO;
+import ca.springframework.sfgbankakar.enums.Operator;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.model.Musteri;
 import ca.springframework.sfgbankakar.model.TransferLog;
@@ -12,13 +15,17 @@ import ca.springframework.sfgbankakar.repositories.KimlikRepository;
 import ca.springframework.sfgbankakar.repositories.MusteriRepository;
 import ca.springframework.sfgbankakar.repositories.TransferLogRepository;
 import ca.springframework.sfgbankakar.services.MusteriService;
-import org.springframework.amqp.core.AcknowledgeMode;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import ca.springframework.sfgbankakar.enums.JoinType;
+
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -28,6 +35,18 @@ import java.util.Set;
 
 @Service
 public class MusteriServiceImpl implements MusteriService {
+
+
+    @PersistenceContext
+    private EntityManager  entityManager;
+
+    /*
+     @PersistenceContext -> Persistence Context, entity nesnelerini ve entity lifecycle (yaşam döngüsü) yöneten yapıdır.
+     Veritabanı ve uygulama arasındadır. Persistence Context, entity nesnelerinin referanslarını tutar.
+    *  entityManager.persist(Musteri.builder().bakiye(1000.0).hesapNo("123456789").ibanNo("TR123456789").build());
+        Query query =  entityManager.createQuery("select m from Musteri m where m.bakiye > :paramBakiye");
+        query.setParameter("paramBakiye",10060.00);
+    * */
 
     private final MusteriRepository musteriRepository;
 
@@ -100,7 +119,16 @@ public class MusteriServiceImpl implements MusteriService {
 
     @Override
     public List<MusteriDTO> getAllMusteri() {
-        List<Musteri> musteriList = musteriRepository.findAll();
+      List<Musteri> musteriList =  new QueryBuilder<>().setEntityManager(entityManager)
+                .createQueryFrom(Musteri.class,"t")
+                .select("t")
+                .join(Kimlik.class,"k","k = t.kimlik", JoinType.INNER_JOIN)
+             // .where("t.bakiye", Operator.GRANDER_THAN_OR_EQUAL,10060.00)
+                 .whereJpql("t.bakiye >= :paramBakiye")
+                 .addExtraParam("paramBakiye",10060.00)
+                .getResultClassList(Musteri.class)
+                ;
+//        List<Musteri> musteriList = musteriRepository.findAll();
         List<MusteriDTO> musteriDTO =  new GenUtilMap<MusteriDTO,Musteri>().pojoToListDto(new MusteriDTO(),musteriList);
         return musteriDTO;
     }
