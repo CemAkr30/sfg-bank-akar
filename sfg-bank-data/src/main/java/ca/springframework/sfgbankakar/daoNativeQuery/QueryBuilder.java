@@ -27,7 +27,9 @@ public class QueryBuilder<T extends BaseEntity> {
     private  String orderByClause= "";
     private  String groupByClause= "";
     private  String havingClause= "";
-    private  String selectClause = "";
+    private  String selectClause = "SELECT ";
+
+    private boolean isSelect = false;
     private  String fromClause= "" ;
     private  String joinClause= "";
 
@@ -35,7 +37,11 @@ public class QueryBuilder<T extends BaseEntity> {
 
     private Integer paramCount = 0;
 
+    private Integer paramUnionCount = 0;
+
     private Map<Integer,Map<String,Object>> parameters = new HashMap<>();
+
+    private Map<Integer,String> unionAllMap = new HashMap<>();
 
     public QueryBuilder setEntityManager(EntityManager em){
         entityManager = em;
@@ -51,7 +57,42 @@ public class QueryBuilder<T extends BaseEntity> {
         for (String field : fields) {
             selectClause += field + ",";
         }
-        selectClause = "SELECT " + selectClause.substring(0, selectClause.length() - 1);
+        if(isSelect) {
+            selectClause = "," + selectClause.substring(0, selectClause.length() - 1);
+        }else{
+            selectClause = selectClause.substring(0, selectClause.length() - 1);
+        }
+        isSelect=true;
+        return this;
+    }
+
+    public QueryBuilder selectJpql(String jpql) {
+        if(isSelect) {
+            selectClause += "," + jpql;
+        }else{
+            selectClause += jpql;
+        }
+        isSelect=true;
+        return this;
+    }
+
+    public QueryBuilder selectFunction(AggerationFunction aggerationFunction, String field) {
+        if(isSelect) {
+            selectClause += "," + aggerationFunction.getAdi() + "(" + field + ")";
+        }else{
+            selectClause += aggerationFunction.getAdi() + "(" + field + ")";
+        }
+        isSelect=true;
+        return this;
+    }
+
+    public QueryBuilder selectSubQuery(QueryBuilder subQuery) {
+        if(isSelect) {
+            selectClause += ", ( " + subQuery.getQueryAsString() + " ) ";
+        }else{
+            selectClause += " ( " +  subQuery + " ) ";
+        }
+        isSelect=true;
         return this;
     }
 
@@ -118,7 +159,7 @@ public class QueryBuilder<T extends BaseEntity> {
     }
 
     public  QueryBuilder unionAll(QueryBuilder queryBuilder) {
-        fromClause+="\n UNION ALL \n" + queryBuilder.getQueryAsString();
+        unionAllMap.put(paramUnionCount," UNION ALL " +queryBuilder.getQueryAsString());
         return this;
     }
 
@@ -131,7 +172,10 @@ public class QueryBuilder<T extends BaseEntity> {
                 query = query.replace(":"+entry.getKey(),entry.getValue().toString());
             }
         }
-        return query;
+        for (int k=0;k<unionAllMap.size();k++) {
+            query += unionAllMap.get(k);
+        }
+         return query;
     }
 
 

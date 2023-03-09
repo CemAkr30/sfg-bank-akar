@@ -7,6 +7,7 @@ import ca.springframework.sfgbankakar.daoNativeQuery.QueryBuilder;
 import ca.springframework.sfgbankakar.defaults.genUtils.GenUtilMap;
 import ca.springframework.sfgbankakar.dto.BakiyeTransferDTO;
 import ca.springframework.sfgbankakar.dto.MusteriDTO;
+import ca.springframework.sfgbankakar.enums.AggerationFunction;
 import ca.springframework.sfgbankakar.enums.Operator;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.model.Musteri;
@@ -27,10 +28,7 @@ import ca.springframework.sfgbankakar.enums.JoinType;
 
 import javax.persistence.Query;
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 
 @Service
@@ -119,13 +117,23 @@ public class MusteriServiceImpl implements MusteriService {
 
     @Override
     public List<MusteriDTO> getAllMusteri() {
-      List<Musteri> musteriList =  new QueryBuilder<>().setEntityManager(entityManager)
+      List<Object> kimliksList =  new QueryBuilder<>().setEntityManager(entityManager)
+                .createQueryFrom(Kimlik.class,"t")
+                .select("t")
+                .selectSubQuery(new QueryBuilder<>().setEntityManager(entityManager)
+                        .createQueryFrom(Musteri.class,"t1")
+                        .selectFunction(AggerationFunction.MAX,"t1.bakiye")
+                        .whereJpql("t1.kimlik = t"))
+//                .join(Kimlik.class,"k","k = t.kimlik", JoinType.INNER_JOIN)
+//                 .whereJpql("t.bakiye >= :paramBakiye")
+//                 .addExtraParam("paramBakiye",13500.32)
+              //   .unionAll(qb)
+                .getResultList()
+                ;
+      List<Musteri> musteriList = new QueryBuilder<>().setEntityManager(entityManager)
                 .createQueryFrom(Musteri.class,"t")
                 .select("t")
                 .join(Kimlik.class,"k","k = t.kimlik", JoinType.INNER_JOIN)
-             // .where("t.bakiye", Operator.GRANDER_THAN_OR_EQUAL,10060.00)
-                 .whereJpql("t.bakiye >= :paramBakiye")
-                 .addExtraParam("paramBakiye",10060.00)
                 .getResultClassList(Musteri.class)
                 ;
 //        List<Musteri> musteriList = musteriRepository.findAll();
