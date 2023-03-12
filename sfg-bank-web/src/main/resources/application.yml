@@ -6,6 +6,11 @@ spring:
       - postgre
       - mail
       - rabbitMQ
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  zipkin:
+    base-url: http://localhost:9411/
 ca:
   dbUserName: ymlAppUsername
   dbPassword: ymlAppPassword

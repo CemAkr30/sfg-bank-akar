@@ -6,6 +6,7 @@ import ca.springframework.sfgbankakar.mapper.KimlikMapper;
 import ca.springframework.sfgbankakar.model.Kimlik;
 import ca.springframework.sfgbankakar.repositories.KimlikRepository;
 import ca.springframework.sfgbankakar.services.KimlikService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+
+@Slf4j
 @Service
 @Profile("springdatajpa") // KimlikService türeyen 2 class biri KimlikServiceImpl diğeri KimlikMapService Qualifer vermek yerine injection yaparken
 //profile olanlara göre injection gerçekleştir. MapService ile fake jpa yapmıştık  mantığı anlamak için ancak şimdi jpa kullanarak
@@ -112,6 +115,7 @@ public class KimlikServiceImpl implements KimlikService {
 
     @Override
     public Set<Kimlik> findAll() {
+        log.info("KimlikServiceImpl.findAll() methodu çağrıldı");
         Set<Kimlik> kimlikSet = new HashSet<>();
    //     kimlikRepository.findAll().forEach(kimlikSet::add);
         kimlikRepository.findAll().iterator().forEachRemaining(kimlikSet::add);
